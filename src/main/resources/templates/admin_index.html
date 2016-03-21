@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+<div class="page-header">
+   <h1>Página de administración<small> Sistema de votación</small></h1>
+   <div style="margin: auto; width: 20%;">
+   		<button type="button" class="btn btn-primary btn-lg btn-block">Añadir nueva votación</button>
+   </div>
+   <br></br>
+   <table class="table table-striped">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Activación</th>
+        <th>Activar/Desactivar</th>
+      </tr>
+      <tr th:each="elec : ${lista}">
+        <td th:text="${elec.id}"></td>
+        <td th:text="${elec.nombre}"></td>
+        <td th:text="${elec.fecha}"></td>
+        <td th:text="${elec.horaInicio}"></td>
+        <td th:text="${elec.horaFin}"></td>
+        <td th:if="${elec.activa == true}" th:text="SI"></td>
+        <td th:if="${elec.activa == false}" th:text="NO"></td>
+        <td th:if="${elec.activa == true}"><button type="button" class="btn btn-danger">Desactivar</button></td>
+        <td th:if="${elec.activa == false}"><button type="button" class="btn btn-success">Activar</button></td>
+      </tr>
+    </table>
+</div>
+</body>
+</html>
