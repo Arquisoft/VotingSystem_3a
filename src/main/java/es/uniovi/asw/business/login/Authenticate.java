@@ -1,4 +1,4 @@
-package es.uniovi.asw.systemConfiguration.administratorManagement;
+package es.uniovi.asw.business.login;
 
 public class Authenticate {
 	
