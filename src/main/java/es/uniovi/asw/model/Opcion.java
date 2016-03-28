@@ -20,7 +20,11 @@ public class Opcion {
 	@OneToMany(mappedBy = "opcion")
 	private Set<Voto> votos;
 	
-	Opcion() {}
+	public Opcion() {}
+	
+	public Opcion(String nombre){
+		this.nombre = nombre;
+	}
 	
 	public Opcion(Eleccion e){
 		Asociacion.EleccionOpcion.link(e, this);

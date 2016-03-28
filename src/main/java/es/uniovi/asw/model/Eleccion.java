@@ -2,24 +2,34 @@ package es.uniovi.asw.model;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Eleccion {
 	
 	@Id @GeneratedValue
 	private Long id;
+	@NotNull @NotEmpty
 	private String nombre;
-	private Date fechaInicio, fechaFin;
+	@NotNull
+	private Date fechaInicio;
+	@NotNull
+	private Date fechaFin;
 	private Time horaInicio, horaFin;
-	
+	private Integer numeroOpciones;
+	private boolean activa;
+
 	@OneToMany(mappedBy = "eleccion")
-	private Set<Opcion> opciones;
+	private List<Opcion> opciones;
 	
 	@OneToMany(mappedBy = "eleccion")
 	private Set<VotoConfirmado> votantes;
@@ -35,7 +45,11 @@ public class Eleccion {
 		this.horaFin = hFin;
 	}
 	
-	Eleccion() {}
+	public Eleccion(String nombre){
+		this.nombre = nombre;
+	}
+	
+	public Eleccion() {}
 	
 	public String getNombre() {
 		return nombre;
@@ -46,6 +60,7 @@ public class Eleccion {
 	}
 	
 	public void setFechaInicio(Date fechaInicio) {
+		this.horaInicio = new Time(fechaInicio.getTime());
 		this.fechaInicio = fechaInicio;
 	}
 	
@@ -54,6 +69,7 @@ public class Eleccion {
 	}
 	
 	public void setFechaFin(Date fechaFin) {
+		this.horaFin = new Time(fechaFin.getTime());
 		this.fechaFin = fechaFin;
 	}
 	
@@ -73,11 +89,11 @@ public class Eleccion {
 		this.horaFin = horaFin;
 	}
 
-	public Set<Opcion> getOpciones() {
+	public List<Opcion> getOpciones() {
 		return opciones;
 	}
 
-	public void setOpciones(Set<Opcion> opciones) {
+	public void setOpciones(List<Opcion> opciones) {
 		this.opciones = opciones;
 	}
 
@@ -95,6 +111,30 @@ public class Eleccion {
 
 	public void setCandidaturas(Set<Candidatura> candidaturas) {
 		this.candidaturas = candidaturas;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public Integer getNumeroOpciones() {
+		return numeroOpciones;
+	}
+
+	public void setNumeroOpciones(Integer numeroOpciones) {
+		this.numeroOpciones = numeroOpciones;
+	}
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	@Override

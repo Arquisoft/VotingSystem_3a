@@ -4,31 +4,44 @@
 </head>
 <body>
 <div class="page-header">
+	<center>
    <h1>Página de administración<small> Sistema de votación</small></h1>
-   <div style="margin: auto; width: 20%;">
-   		<button type="button" class="btn btn-primary btn-lg btn-block">Añadir nueva votación</button>
-   </div>
+   <div th:if="${error != null}">
+    	<p><font th:text="${error}" color="red" size="2"></font></p>
+	</div>
+   <form class="navbar-form" role="search" action="#" th:action="@{/admin_index}" th:object="${eleccion}" method="post">
+  		<div class="form-group offset3">
+  			<span class="label label-primary">Numero de opciones de voto</span>
+    		<input type="number" class="form-control" th:field="*{numeroOpciones}"/>
+  		</div>
+  		<button type="submit" class="btn btn-primary">Añadir nuevas elecciones</button>
+	</form>
+	</center>
    <br></br>
    <table class="table table-striped">
       <tr>
         <th>ID</th>
         <th>Nombre</th>
-        <th>Fecha</th>
-        <th>Inicio</th>
-        <th>Fin</th>
+        <th>Fecha comienzo</th>
+        <th>Fecha finalización</th>
+        <th>Hora de inicio</th>
+        <th>Hora de finalización</th>
         <th>Activación</th>
         <th>Activar/Desactivar</th>
       </tr>
-      <tr th:each="elec : ${lista}">
-        <td th:text="${elec.id}"></td>
-        <td th:text="${elec.nombre}"></td>
-        <td th:text="${elec.fecha}"></td>
-        <td th:text="${elec.horaInicio}"></td>
-        <td th:text="${elec.horaFin}"></td>
-        <td th:if="${elec.activa == true}" th:text="SI"></td>
-        <td th:if="${elec.activa == false}" th:text="NO"></td>
-        <td th:if="${elec.activa == true}"><button type="button" class="btn btn-danger">Desactivar</button></td>
-        <td th:if="${elec.activa == false}"><button type="button" class="btn btn-success">Activar</button></td>
+      <tr th:each="e : ${elecciones}">
+	      <form class="navbar-form" action="#" th:action="@{/admin_index}" method="post">
+		        <td th:text="${e.id}"></td>
+		        <td th:text="${e.nombre}"></td>
+		        <td th:text="${e.fechaInicio}"></td>
+		        <td th:text="${e.fechaFin}"></td>
+		        <td th:text="${e.horaInicio}"></td>
+		        <td th:text="${e.horaFin}"></td>
+		        <td th:if="${e.activa == true}" th:text="SI"></td>
+		        <td th:if="${e.activa == false}" th:text="NO"></td>
+		        <td th:if="${e.activa == true}"><button type="submit" class="btn btn-danger"  name="action" th:value="${e.id}">Desactivar</button></td>
+		        <td th:if="${e.activa == false}"><button type="submit" class="btn btn-success"  name="action" th:value="${e.id}">Activar</button></td>
+	      </form>
       </tr>
     </table>
 </div>
