@@ -57,12 +57,12 @@ public class Asociacion {
 	
 	public static class VotoOpcion {
 
-		public static void link(Voto voto, Opcion opcion) {
+		public static void link(Voto voto, Candidatura opcion) {
 			opcion.getVotos().add(voto);
 			voto.setOpcion(opcion);
 		}
 
-		public static void unlink(Voto voto, Opcion opcion) {
+		public static void unlink(Voto voto, Candidatura opcion) {
 			opcion.getVotos().remove(voto);
 			voto.setOpcion(null);
 		}
@@ -70,12 +70,12 @@ public class Asociacion {
 	
 	public static class EleccionOpcion {
 
-		public static void link(Eleccion e, Opcion o) {
+		public static void link(Eleccion e, Candidatura o) {
 			e.getOpciones().add(o);
 			o.setEleccion(e);
 		}
 
-		public static void unlink(Eleccion e, Opcion o) {
+		public static void unlink(Eleccion e, Candidatura o) {
 			e.getOpciones().remove(o);
 			o.setEleccion(null);
 		}
@@ -104,19 +104,6 @@ public class Asociacion {
 		public static void unlink(Voter v, VotoConfirmado vc) {
 			v.getElecciones().remove(vc);
 			vc.setVotante(null);
-		}
-	}
-	
-	public static class EleccionCandidatura {
-
-		public static void link(Eleccion e, Candidatura c) {
-			e.getCandidaturas().add(c);
-			c.setEleccion(e);
-		}
-
-		public static void unlink(Eleccion e, Candidatura c) {
-			e.getCandidaturas().remove(c);
-			c.setEleccion(null);
 		}
 	}
 

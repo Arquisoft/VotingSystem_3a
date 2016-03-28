@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import es.uniovi.asw.model.Opcion;
+import es.uniovi.asw.model.Candidatura;
 
-public interface OptionRepository extends CrudRepository<Opcion, Long> {
+public interface OptionRepository extends CrudRepository<Candidatura, Long> {
 	
 	@SuppressWarnings("unchecked")
-	Opcion save(Opcion opcion);
+	Candidatura save(Candidatura opcion);
 	
-	List<Opcion> findAll();
+	List<Candidatura> findAll();
 
 }

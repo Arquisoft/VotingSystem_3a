@@ -29,13 +29,10 @@ public class Eleccion {
 	private boolean activa;
 
 	@OneToMany(mappedBy = "eleccion")
-	private List<Opcion> opciones;
+	private List<Candidatura> opciones;
 	
 	@OneToMany(mappedBy = "eleccion")
 	private Set<VotoConfirmado> votantes;
-	
-	@OneToMany(mappedBy = "eleccion")
-	private Set<Candidatura> candidaturas;
 	
 	public Eleccion(String nombre, Date inicio, Date fin, Time hInicio, Time hFin){
 		this.nombre = nombre;
@@ -89,11 +86,11 @@ public class Eleccion {
 		this.horaFin = horaFin;
 	}
 
-	public List<Opcion> getOpciones() {
+	public List<Candidatura> getOpciones() {
 		return opciones;
 	}
 
-	public void setOpciones(List<Opcion> opciones) {
+	public void setOpciones(List<Candidatura> opciones) {
 		this.opciones = opciones;
 	}
 
@@ -103,14 +100,6 @@ public class Eleccion {
 
 	public void setVotantes(Set<VotoConfirmado> votantes) {
 		this.votantes = votantes;
-	}
-
-	public Set<Candidatura> getCandidaturas() {
-		return candidaturas;
-	}
-
-	public void setCandidaturas(Set<Candidatura> candidaturas) {
-		this.candidaturas = candidaturas;
 	}
 
 	public void setNombre(String nombre) {

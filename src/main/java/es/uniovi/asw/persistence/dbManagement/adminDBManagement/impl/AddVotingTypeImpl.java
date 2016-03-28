@@ -3,7 +3,7 @@ package es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl;
 import java.util.List;
 
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.model.Opcion;
+import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.AddVotingType;
 
 public class AddVotingTypeImpl implements AddVotingType{
@@ -11,8 +11,8 @@ public class AddVotingTypeImpl implements AddVotingType{
 	@Override
 	public void addVotingType(VotingRepository vRep, OptionRepository oRep, Eleccion e) {
 		vRep.save(e);
-		List<Opcion> opciones = e.getOpciones();
-		for(Opcion o: opciones){
+		List<Candidatura> opciones = e.getOpciones();
+		for(Candidatura o: opciones){
 			o.setEleccion(e);
 			oRep.save(o);
 		}

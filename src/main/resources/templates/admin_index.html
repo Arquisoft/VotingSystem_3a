@@ -28,6 +28,7 @@
         <th>Hora de finalización</th>
         <th>Activación</th>
         <th>Activar/Desactivar</th>
+        <th>Configurar opc./candid.</th>
       </tr>
       <tr th:each="e : ${elecciones}">
 	      <form class="navbar-form" action="#" th:action="@{/admin_index}" method="post">
@@ -41,6 +42,7 @@
 		        <td th:if="${e.activa == false}" th:text="NO"></td>
 		        <td th:if="${e.activa == true}"><button type="submit" class="btn btn-danger"  name="action" th:value="${e.id}">Desactivar</button></td>
 		        <td th:if="${e.activa == false}"><button type="submit" class="btn btn-success"  name="action" th:value="${e.id}">Activar</button></td>
+		        <th><button type="submit" class="btn btn-link"  name="conf" th:value="${e.id}">Configurar</button></th>
 	      </form>
       </tr>
     </table>

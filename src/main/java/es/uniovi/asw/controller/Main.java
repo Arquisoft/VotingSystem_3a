@@ -77,6 +77,11 @@ public class Main {
         return new ModelAndView("admin_index"); 
     }
 	
+	@RequestMapping(value="/admin_index", method = RequestMethod.POST,  params="conf")
+    public ModelAndView adminIndexConfOptions(@RequestParam(value="conf", required=true) String id, Model model){
+        return new ModelAndView("conf_options"); 
+    }
+	
 	@RequestMapping(value="/new_votation", method = RequestMethod.POST)
     public ModelAndView newVotingPost(@ModelAttribute @Valid Eleccion eleccion, BindingResult bindingResult, Model model){
 		if(bindingResult.hasErrors()){

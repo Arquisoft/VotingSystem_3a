@@ -15,7 +15,7 @@ public class Voto {
 	private ColegioElectoral colegio;
 	
 	@ManyToOne
-	private Opcion opcion;
+	private Candidatura opcion;
 	
 	Voto() {}
 	
@@ -23,7 +23,7 @@ public class Voto {
 		Asociacion.ColegioVoto.link(colegio, this);
 	}
 	
-	public Voto(Opcion opcion){
+	public Voto(Candidatura opcion){
 		Asociacion.VotoOpcion.link(this, opcion);
 	}
 
@@ -35,11 +35,11 @@ public class Voto {
 		this.colegio = colegio;
 	}
 
-	public Opcion getOpcion() {
+	public Candidatura getOpcion() {
 		return opcion;
 	}
 
-	public void setOpcion(Opcion opcion) {
+	public void setOpcion(Candidatura opcion) {
 		this.opcion = opcion;
 	}
 	
