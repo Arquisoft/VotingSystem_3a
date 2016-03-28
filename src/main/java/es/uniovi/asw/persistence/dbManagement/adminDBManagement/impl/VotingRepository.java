@@ -12,5 +12,7 @@ public interface VotingRepository extends CrudRepository<Eleccion, Long> {
 	Eleccion save(Eleccion eleccion);
 	
 	List<Eleccion> findAll();
+	
+	Eleccion findOne(Long id);
 
 }

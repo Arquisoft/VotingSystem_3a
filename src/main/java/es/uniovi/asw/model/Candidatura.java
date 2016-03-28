@@ -1,26 +1,50 @@
 package es.uniovi.asw.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Candidatura {
 	
-	@Id @GeneratedValue 
+	@Id @GeneratedValue
 	private Long id;
-	
 	@ManyToOne
 	private Eleccion eleccion;
 	private String nombre;
 	private String descripcion;
 	private String programaElectoral;
+	@OneToMany(mappedBy = "opcion")
+	private Set<Voto> votos;
 	
-	Candidatura() {}
+	public Candidatura() {}
 	
-	public Candidatura(Eleccion eleccion){
-		Asociacion.EleccionCandidatura.link(eleccion, this);
+	public Candidatura(String nombre){
+		this.nombre = nombre;
+	}
+	
+	public Candidatura(Eleccion e){
+		Asociacion.EleccionOpcion.link(e, this);
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Eleccion getEleccion() {
@@ -31,20 +55,12 @@ public class Candidatura {
 		this.eleccion = eleccion;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public Set<Voto> getVotos() {
+		return votos;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setVotos(Set<Voto> votos) {
+		this.votos = votos;
 	}
 
 	public String getProgramaElectoral() {
@@ -55,16 +71,18 @@ public class Candidatura {
 		this.programaElectoral = programaElectoral;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public String toString() {
+		return "Opcion [id=" + id + ", eleccion=" + eleccion + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", votos=" + votos + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((eleccion == null) ? 0 : eleccion.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((programaElectoral == null) ? 0 : programaElectoral.hashCode());
 		return result;
 	}
 
@@ -77,23 +95,16 @@ public class Candidatura {
 		if (getClass() != obj.getClass())
 			return false;
 		Candidatura other = (Candidatura) obj;
+		if (eleccion == null) {
+			if (other.eleccion != null)
+				return false;
+		} else if (!eleccion.equals(other.eleccion))
+			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (programaElectoral == null) {
-			if (other.programaElectoral != null)
-				return false;
-		} else if (!programaElectoral.equals(other.programaElectoral))
-			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Candidatura [id=" + id + ", eleccion=" + eleccion + ", nombre=" + nombre + ", descripcion="
-				+ descripcion + ", programaElectoral=" + programaElectoral + "]";
-	}
-
 }
