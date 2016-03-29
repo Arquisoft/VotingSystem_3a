@@ -9,7 +9,7 @@ import es.uniovi.asw.persistence.dbManagement.adminDBManagement.AddVotingType;
 public class AddVotingTypeImpl implements AddVotingType{
 
 	@Override
-	public void addVotingType(VotingRepository vRep, OptionRepository oRep, Eleccion e) {
+	public void addVotingType(VotingRepository vRep, CandidacyRepository oRep, Eleccion e) {
 		vRep.save(e);
 		List<Candidatura> opciones = e.getOpciones();
 		for(Candidatura o: opciones){

@@ -2,17 +2,17 @@ package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 
 import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting.ConfVotingType;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.OptionRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
 
 public class ConfVT {
 	
 	private VotingRepository vRep;
-	private OptionRepository oRep;
+	private CandidacyRepository oRep;
 	private Eleccion eleccion;
 	private Long id;
 	
-	public ConfVT(VotingRepository vRep, OptionRepository oRep, Eleccion eleccion){
+	public ConfVT(VotingRepository vRep, CandidacyRepository oRep, Eleccion eleccion){
 		this.vRep = vRep;
 		this.oRep = oRep;
 		this.eleccion = eleccion;

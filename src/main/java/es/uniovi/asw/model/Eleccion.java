@@ -1,11 +1,14 @@
 package es.uniovi.asw.model;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -28,8 +31,8 @@ public class Eleccion {
 	private Integer numeroOpciones;
 	private boolean activa;
 
-	@OneToMany(mappedBy = "eleccion")
-	private List<Candidatura> opciones;
+	@OneToMany(mappedBy = "eleccion", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Candidatura> opciones = new ArrayList<Candidatura>();
 	
 	@OneToMany(mappedBy = "eleccion")
 	private Set<VotoConfirmado> votantes;
