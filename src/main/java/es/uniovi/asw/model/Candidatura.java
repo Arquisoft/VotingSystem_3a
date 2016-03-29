@@ -21,6 +21,10 @@ public class Candidatura {
 	@OneToMany(mappedBy = "opcion")
 	private Set<Voto> votos;
 	
+	public Long getId() {
+		return id;
+	}
+
 	public Candidatura() {}
 	
 	public Candidatura(String nombre){
@@ -73,8 +77,8 @@ public class Candidatura {
 
 	@Override
 	public String toString() {
-		return "Opcion [id=" + id + ", eleccion=" + eleccion + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", votos=" + votos + "]";
+		return "Candidatura [id=" + id + ", eleccion=" + eleccion + ", nombre=" + nombre + ", descripcion="
+				+ descripcion + ", programaElectoral=" + programaElectoral + ", votos=" + votos + "]";
 	}
 
 	@Override

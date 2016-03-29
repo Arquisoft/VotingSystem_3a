@@ -4,9 +4,22 @@
 </head>
 <body>
 <div class="page-header">
-	
    <h1>Página de conf de opciones<small> Sistema de votación</small></h1>
-   
+   <table class="table table-striped">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Programa electoral</th>
+      </tr>
+      <form class="navbar-form" action="#" th:action="@{/conf_options}" th:object="${eleccion}" method="post">
+      <tr th:each="c,stat : ${eleccion.opciones}">
+      		<td th:text="${c.nombre}"></td>
+	        <td><textarea class="form-control" rows="3" placeholder="Descripcion" th:field="*{opciones[__${stat.index}__].descripcion}"></textarea></td>
+	    	<td><input type="text" class="form-control" placeholder="Programa (enlace)" th:field="*{opciones[__${stat.index}__].programaElectoral}" /></td>
+	  </tr>
+	  <button type="submit" class="btn btn-link"  name="save_conf" th:value="*{id}">Configurar</button>
+	  </form>
+    </table>
 </div>
 </body>
 </html>

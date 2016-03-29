@@ -17,7 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import es.uniovi.asw.business.login.Authenticate;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.OptionRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.AddCandidacyCImpl;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
@@ -31,7 +32,7 @@ public class Main {
 	@Autowired
 	private VotingRepository vRep;
 	@Autowired
-	private OptionRepository oRep;
+	private CandidacyRepository cRep;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
@@ -79,7 +80,16 @@ public class Main {
 	
 	@RequestMapping(value="/admin_index", method = RequestMethod.POST,  params="conf")
     public ModelAndView adminIndexConfOptions(@RequestParam(value="conf", required=true) String id, Model model){
+		model.addAttribute("eleccion", new GetVT(vRep, cRep, Long.parseLong(id)).getById());
         return new ModelAndView("conf_options"); 
+    }
+	
+	@RequestMapping(value="/conf_options", method = RequestMethod.POST,  params="save_conf")
+    public ModelAndView adminConfOptions(@RequestParam(value="save_conf", required=true) String id, @ModelAttribute Eleccion eleccion, Model model){
+		model.addAttribute("eleccion", new Eleccion());
+		new AddCandidacyCImpl().saveCandidacys(vRep, cRep, eleccion.getOpciones(), Long.parseLong(id));
+		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+        return new ModelAndView("admin_index"); 
     }
 	
 	@RequestMapping(value="/new_votation", method = RequestMethod.POST)
@@ -88,7 +98,7 @@ public class Main {
 			model.addAttribute("error", "Existen campos obligatorios vacíos");
 			return new ModelAndView("new_votation");
 		}
-		new ConfVT(vRep, oRep, eleccion).saveEleccion();
+		new ConfVT(vRep, cRep, eleccion).saveEleccion();
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
         return new ModelAndView("admin_index"); 
     }    

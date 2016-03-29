@@ -11,6 +11,18 @@ public class GetVotingsImpl implements GetVotings{
 	public List<Eleccion> getVotings(VotingRepository vr) {
 		return vr.findAll();
 	}
+
+	@Override
+	public Eleccion getEleccionById(VotingRepository vr, CandidacyRepository cRep, Long id) {
+		List<Eleccion> elecciones = vr.findAll();
+		for(Eleccion e : elecciones){
+			if(e.getId() == id){
+				e.getOpciones().size();
+				return e;
+			}
+		}
+		return null;
+	}
 	
 	
 
