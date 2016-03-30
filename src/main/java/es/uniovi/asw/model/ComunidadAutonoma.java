@@ -1,5 +1,6 @@
 package es.uniovi.asw.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,9 +15,13 @@ public class ComunidadAutonoma {
 	private Long id;
 	private String nombre;
 	@OneToMany(mappedBy = "comunidad") 
-	private Set<Circunscripcion> circunscripciones;
+	private Set<Circunscripcion> circunscripciones = new HashSet<>();
 	
 	ComunidadAutonoma() {}
+	
+	public ComunidadAutonoma(String nombre) {
+		this.nombre = nombre;
+	}
 	
 	public String getNombre() {
 		return nombre;
