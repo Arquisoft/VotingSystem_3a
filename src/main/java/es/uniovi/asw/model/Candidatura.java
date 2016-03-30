@@ -1,5 +1,6 @@
 package es.uniovi.asw.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ public class Candidatura {
 	private String descripcion;
 	private String programaElectoral;
 	@OneToMany(mappedBy = "opcion")
-	private Set<Voto> votos;
+	private Set<Voto> votos = new HashSet<>();
 	
 	public Long getId() {
 		return id;
@@ -31,7 +32,7 @@ public class Candidatura {
 		this.nombre = nombre;
 	}
 	
-	public Candidatura(Eleccion e){
+	public Candidatura(String nombre, Eleccion e){
 		Asociacion.EleccionOpcion.link(e, this);
 	}
 	

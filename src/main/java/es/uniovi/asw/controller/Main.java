@@ -20,6 +20,7 @@ import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.AddCandidacyCImpl;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
 
@@ -39,12 +40,6 @@ public class Main {
 		LOG.info("Página de Login");
 		model.addAttribute("voter", new Voter());
 		model.addAttribute("error", null);
-		return new ModelAndView("index");
-	}
-	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView indexGoTo(Model model) {
-		LOG.info("Página de Login");
 		return new ModelAndView("index");
 	}
 
@@ -87,7 +82,7 @@ public class Main {
 	@RequestMapping(value="/conf_options", method = RequestMethod.POST,  params="save_conf")
     public ModelAndView adminConfOptions(@RequestParam(value="save_conf", required=true) String id, @ModelAttribute Eleccion eleccion, Model model){
 		model.addAttribute("eleccion", new Eleccion());
-		new AddCandidacyCImpl().saveCandidacys(vRep, cRep, eleccion.getOpciones(), Long.parseLong(id));
+		new ConfCand(vRep, cRep, eleccion.getOpciones(), Long.parseLong(id)).saveCandidaturas();
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
         return new ModelAndView("admin_index"); 
     }

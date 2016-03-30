@@ -3,3 +3,8 @@ Feature: landing page
     When the client calls /
     Then the client receives status code of 200
     And the client receives the string "Log-in"
+    
+  Scenario: client makes call to POST /
+    When the client calls /
+    Then the client receives status code of 200
+    And the client receives the string "Log-in"

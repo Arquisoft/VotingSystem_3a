@@ -1,5 +1,6 @@
 package es.uniovi.asw.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,15 +15,22 @@ public class Circunscripcion {
 	@Id @GeneratedValue
 	private Long id;
 	
+	private String nombre;
+
 	@ManyToOne
 	private ComunidadAutonoma comunidad;
 	
 	@OneToMany(mappedBy = "circunscripcion")
-	private Set<ColegioElectoral> colegios;
+	private Set<ColegioElectoral> colegios = new HashSet<>();
 	
 	Circunscripcion() {}
 	
 	public Circunscripcion(ComunidadAutonoma comunidad){
+		Asociacion.ComunidadCircunscripcion.link(comunidad, this);
+	}
+	
+	public Circunscripcion(String nombre, ComunidadAutonoma comunidad){
+		this.nombre = nombre;
 		Asociacion.ComunidadCircunscripcion.link(comunidad, this);
 	}
 	
@@ -41,13 +49,21 @@ public class Circunscripcion {
 	public void setComunidad(ComunidadAutonoma comunidad) {
 		this.comunidad = comunidad;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comunidad == null) ? 0 : comunidad.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
 
@@ -65,10 +81,10 @@ public class Circunscripcion {
 				return false;
 		} else if (!comunidad.equals(other.comunidad))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
 	}

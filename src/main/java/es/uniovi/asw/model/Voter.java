@@ -1,5 +1,6 @@
 package es.uniovi.asw.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Voter {
 	private ColegioElectoral colegio;
 	
 	@OneToMany(mappedBy = "votante")
-	private Set<VotoConfirmado> elecciones;
+	private Set<VotoConfirmado> elecciones = new HashSet<>();
 	
 	public Voter(){}
 	

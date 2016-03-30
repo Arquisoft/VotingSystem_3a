@@ -1,5 +1,6 @@
 package es.uniovi.asw.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -18,17 +19,24 @@ public class ColegioElectoral {
 	private Circunscripcion circunscripcion;
 	
 	@OneToMany(mappedBy = "colegio")
-	private Set<Voto> votos;
+	private Set<Voto> votos = new HashSet<>();
 	
 	@OneToMany(mappedBy = "colegio")
-	private Set<Voter> votantes;
+	private Set<Voter> votantes = new HashSet<>();
 	
 	private String nombre;
 	private String poblacion;
 	
 	ColegioElectoral() {}
 	
-	public ColegioElectoral(Circunscripcion c){
+	public ColegioElectoral(String nombre, String poblacion){
+		this.nombre = nombre;
+		this.poblacion = poblacion;
+	}
+	
+	public ColegioElectoral(String nombre, String poblacion, Circunscripcion c){
+		this.nombre = nombre;
+		this.poblacion = poblacion;
 		Asociacion.CircunscripcionColegio.link(c, this);
 	}
 	
