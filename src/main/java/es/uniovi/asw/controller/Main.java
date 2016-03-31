@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.business.login.Authenticate;
+import es.uniovi.asw.model.ColegioElectoral;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.AddCandidacyCImpl;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CircunscripcionRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PollingStationRepository;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
+import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
 
 
@@ -34,10 +37,14 @@ public class Main {
 	private VotingRepository vRep;
 	@Autowired
 	private CandidacyRepository cRep;
+	@Autowired
+	private PollingStationRepository pRep;
+	@Autowired
+	private CircunscripcionRepository ciRep;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
-		LOG.info("Página de Login");
+		LOG.info("Página de Login"); 
 		model.addAttribute("voter", new Voter());
 		model.addAttribute("error", null);
 		return new ModelAndView("index");
@@ -79,6 +86,12 @@ public class Main {
         return new ModelAndView("conf_options"); 
     }
 	
+	@RequestMapping(value="/admin_index", method = RequestMethod.POST,  params="pollingStation")
+    public ModelAndView adminIndexConfPollings(Model model){
+		model.addAttribute("colegios", new GetPS(pRep).getPollingStations());
+        return new ModelAndView("list_pollings"); 
+    }
+	
 	@RequestMapping(value="/conf_options", method = RequestMethod.POST,  params="save_conf")
     public ModelAndView adminConfOptions(@RequestParam(value="save_conf", required=true) String id, @ModelAttribute Eleccion eleccion, Model model){
 		model.addAttribute("eleccion", new Eleccion());
@@ -86,6 +99,20 @@ public class Main {
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
         return new ModelAndView("admin_index"); 
     }
+	
+	@RequestMapping(value="/list_pollings", method = RequestMethod.POST,  params="p_params")
+    public ModelAndView adminIndexConfPollings(@RequestParam(value="p_params", required=true) String id, Model model){
+        model.addAttribute("colegio",  new GetPS(pRep).getPollingStation(Long.parseLong(id)));
+		model.addAttribute("circunscripciones", new GetPS(ciRep).getCircunscripciones());
+		return new ModelAndView("conf_polling"); 
+    }
+	
+	@RequestMapping(value="/conf_polling", method = RequestMethod.POST)
+    public ModelAndView adminIndexSavePolling(@ModelAttribute ColegioElectoral colegio, Model model){
+		System.out.println("COLEGIO: " + colegio);
+		model.addAttribute("eleccion", new Eleccion());
+		return new ModelAndView("admin_index"); 
+	}
 	
 	@RequestMapping(value="/new_votation", method = RequestMethod.POST)
     public ModelAndView newVotingPost(@ModelAttribute @Valid Eleccion eleccion, BindingResult bindingResult, Model model){
