@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+<div class="page-header col-xs-12 col-md-8">
+   <h1>Página de conf de colegios<small> Sistema de votación</small></h1>
+   <form class="navbar-form" action="#" th:action="@{/conf_polling}" th:object="${colegio}" method="post">
+	  <fieldset class="form-group">
+	    <label for="nombre">Nombre</label>
+	    <input type="text" class="form-control" id="nombre" placeholder="Nombre" th:field="*{nombre}"/>
+	  </fieldset>
+	  <fieldset class="form-group">
+	    <label for="poblacion">Poblacion</label>
+	    <input type="text" class="form-control" id="poblacion" placeholder="Población" th:field="*{poblacion}"/>
+	  </fieldset>
+	  <fieldset class="form-group">
+	    <label for="exampleInputEmail1">Circunscripcion</label>
+	    <select id="country" class="form-control" required="required" th:field="*{circunscripcion}">
+			<option th:each="c : ${circunscripciones}" th:value="${c.id}"
+					th:text="${c.nombre}" th:field="*{circunscripcion}"></option>
+		</select>
+		<button type="submit" class="btn btn-link">Guardar configuración</button>
+  	  </fieldset>
+	</form>
+</div>
+</body>
+</html>
