@@ -53,13 +53,18 @@ public class Main {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView adminIndex(@ModelAttribute Voter voter, Model model) {
 		LOG.info("Panel de administración");
-		if (Authenticate.authenticate(voter.getEmail(), voter.getPassword()).equals("correcto")) {
+		if (Authenticate.authenticate(voter.getEmail(), voter.getPassword()).equals("admin")) {
 			model.addAttribute("eleccion", new Eleccion());
 			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
 			return new ModelAndView("admin_index");
+		}else if(Authenticate.authenticate(voter.getEmail(), voter.getPassword()).equals("voter")){
+			return new ModelAndView("voter_index");
+		}else if(Authenticate.authenticate(voter.getEmail(), voter.getPassword()).equals("president")){
+			return new ModelAndView("president_index");
+		}else{
+			model.addAttribute("error", "Usuario o contraseña incorrectos");
+			return new ModelAndView("index");
 		}
-		model.addAttribute("error", "Usuario o contraseña incorrectos");
-		return new ModelAndView("index");
 	}
 	
 	@RequestMapping(value="/admin_index", method = RequestMethod.POST)
