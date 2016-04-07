@@ -2,10 +2,11 @@ package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 
 import java.util.List;
 
-import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.candidacyManagement.GetCandidacys;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.SysConfigServiceFactory;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.candidacyManagement.CandidacyService;
 import es.uniovi.asw.model.Candidatura;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
 public class GetCand {
 	
@@ -20,7 +21,7 @@ public class GetCand {
 	}
 	
 	public List<Candidatura> getCandidacys(){
-		GetCandidacys gc = new GetCandidacys();
+		CandidacyService gc = SysConfigServiceFactory.getCandidacyService();
 		return gc.getCandidacys(vRep, cRep, id);
 	}
 

@@ -3,16 +3,21 @@ package es.uniovi.asw.business.systemConfiguration.votingParamsManagement.candid
 import java.util.List;
 
 import es.uniovi.asw.model.Candidatura;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.GetCandidacyS;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PersistenceFactory;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
-class GetCandidacys {
-	
+public class CandidacyServiceImpl implements CandidacyService{
+
+	@Override
+	public void saveCandidacys(VotingRepository vRep, CandidacyRepository cRep, List<Candidatura> candidaturas,
+			Long id) {
+		new ConfCandidacy().saveCandidacys(vRep, cRep, candidaturas, id);
+		
+	}
+
+	@Override
 	public List<Candidatura> getCandidacys(VotingRepository vRep, CandidacyRepository cRep, Long id) {
-		GetCandidacyS gc = PersistenceFactory.getCandidacys();
-		return gc.getCandidacys(vRep, cRep, id);
+		return new GetCandidacys().getCandidacys(vRep, cRep, id);
 	}
 
 }

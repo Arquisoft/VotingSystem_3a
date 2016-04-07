@@ -1,9 +1,10 @@
 package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 
-import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting.ConfVotingType;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.SysConfigServiceFactory;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting.VotingTypeService;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
 public class ConfVT {
 	
@@ -24,13 +25,13 @@ public class ConfVT {
 	}
 	
 	public void saveEleccion(){
-		ConfVotingType conf = new ConfVotingType();
-		conf.saveEleccion(vRep, oRep, eleccion);
+		VotingTypeService gvt = SysConfigServiceFactory.getVotingService();
+		gvt.saveEleccion(vRep, oRep, eleccion);
 	}
 	
 	public void updateEleccion(){
-		ConfVotingType conf = new ConfVotingType();
-		conf.updateEleccion(vRep, id);
+		VotingTypeService gvt = SysConfigServiceFactory.getVotingService();
+		gvt.updateEleccion(vRep, id);
 	}
 
 }

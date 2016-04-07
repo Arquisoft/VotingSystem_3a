@@ -2,11 +2,12 @@ package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 
 import java.util.List;
 
-import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.pollingStationManagement.GetPollingStations;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.SysConfigServiceFactory;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.pollingStationManagement.PollingStationService;
 import es.uniovi.asw.model.Circunscripcion;
 import es.uniovi.asw.model.ColegioElectoral;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CircunscripcionRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PollingStationRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CircunscripcionRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.PollingStationRepository;
 
 public class GetPS {
 	
@@ -22,17 +23,17 @@ public class GetPS {
 	}
 	
 	public List<ColegioElectoral> getPollingStations(){
-		GetPollingStations gp = new GetPollingStations();
+		PollingStationService gp = SysConfigServiceFactory.getPollingStationService();
 		return gp.getPollingStatons(pRep);
 	}
 	
 	public List<Circunscripcion> getCircunscripciones(){
-		GetPollingStations gp = new GetPollingStations();
+		PollingStationService gp = SysConfigServiceFactory.getPollingStationService();
 		return gp.getCircunscripciones(cRep);
 	}
 	
 	public ColegioElectoral getPollingStation(Long id){
-		GetPollingStations gp = new GetPollingStations();
+		PollingStationService gp = SysConfigServiceFactory.getPollingStationService();
 		return gp.getById(pRep, id);
 	}
 

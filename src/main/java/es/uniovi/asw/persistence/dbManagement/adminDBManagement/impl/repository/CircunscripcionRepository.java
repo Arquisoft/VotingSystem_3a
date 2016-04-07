@@ -1,4 +1,4 @@
-package es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl;
+package es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository;
 
 import java.util.List;
 

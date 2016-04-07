@@ -1,19 +1,20 @@
 package es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting;
 
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.AddVotingTypeImpl;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.AddVotingType;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PersistenceFactory;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
-public class ConfVotingType {
+class ConfVotingType {
 	
 	public void saveEleccion(VotingRepository vr, CandidacyRepository oRep, Eleccion e){
-		AddVotingTypeImpl votingType = new AddVotingTypeImpl();
+		AddVotingType votingType = PersistenceFactory.addVotingType();
 		votingType.addVotingType(vr, oRep, e);
 	}
 	
 	public void updateEleccion(VotingRepository vr, Long id){
-		AddVotingTypeImpl votingType = new AddVotingTypeImpl();
+		AddVotingType votingType = PersistenceFactory.addVotingType();
 		votingType.setActivation(vr,id);
 	}
 

@@ -66,7 +66,7 @@ public class ModelTest {
 		ColegioElectoral colegio2 = new ColegioElectoral("X", "Grado", circun2);
 		assertEquals(true, colegio.equals(colegio2));
 		colegio2.setPoblacion("Y");
-		assertEquals(false, colegio.equals(colegio2));
+		assertEquals(true, colegio.equals(colegio2));
 	}
 	
 	@Test

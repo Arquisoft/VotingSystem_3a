@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header_time :: head">
-	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" media="screen"
-     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css"/>
 </head>
 <body>
 	<center>
@@ -46,11 +43,15 @@
     	</script>
     	<h5>Selección de opciones/candidaturas</h5>
   		<br></br>
+  		<input type="hidden" th:field="*{numeroOpciones}" />
   		<tr th:each="i,stat : ${#numbers.sequence( 1,  __*{numeroOpciones}__ ) }">
   			<span class="label label-danger" th:text="'Opción ' + ${i}"></span>
    			<input type="text" class="form-control" th:field="*{opciones[__${stat.index}__].nombre}"/>
    			<br></br>
 		</tr>
+		<span class="label label-danger" th:text="'Opción ' + __*{numeroOpciones+1}__"></span>
+   		<input type="text" th:value="'Voto en blanco'" class="uneditable-input" disabled="true"/>
+   		<br></br>
     	<input type="submit" name="login" class="btn btn-success" value="Salvar elección"/>
     </form>
 	</center>

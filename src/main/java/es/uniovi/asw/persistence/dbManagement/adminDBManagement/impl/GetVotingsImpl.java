@@ -1,15 +1,25 @@
 package es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.GetVotings;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
-public class GetVotingsImpl implements GetVotings{
+class GetVotingsImpl implements GetVotings{
 
 	@Override
 	public List<Eleccion> getVotings(VotingRepository vr) {
-		return vr.findAll();
+		List<Eleccion> elecciones = new ArrayList<>();
+		for(Eleccion e : vr.findAll()){
+			if(e.getFechaInicio().after(new Date(System.currentTimeMillis()))){
+				elecciones.add(e);
+			}
+		}
+		return elecciones;
 	}
 
 	@Override

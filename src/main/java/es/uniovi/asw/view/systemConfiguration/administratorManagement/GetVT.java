@@ -2,10 +2,11 @@ package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 
 import java.util.List;
 
-import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting.GetVotingTypes;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.SysConfigServiceFactory;
+import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.voting.VotingTypeService;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 
 public class GetVT {
 	
@@ -24,12 +25,12 @@ public class GetVT {
 	}
 	
 	public Eleccion getById(){
-		GetVotingTypes gvt = new GetVotingTypes();
+		VotingTypeService gvt = SysConfigServiceFactory.getVotingService();
 		return gvt.getEleccionById(vRep, cRep, id);
 	}
 	
 	public List<Eleccion> getActiveVotings(){
-		GetVotingTypes gvt = new GetVotingTypes();
+		VotingTypeService gvt = SysConfigServiceFactory.getVotingService();
 		return gvt.getActiveVotings(vRep);
 	}
 

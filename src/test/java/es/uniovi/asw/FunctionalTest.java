@@ -24,8 +24,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
