@@ -1,5 +1,7 @@
 package es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl;
 
-public class GetActiveVotingsImpl {
+import es.uniovi.asw.persistence.dbManagement.votingDBManagement.GetActiveVotings;
+
+public class GetActiveVotingsImpl implements GetActiveVotings {
 
 }
