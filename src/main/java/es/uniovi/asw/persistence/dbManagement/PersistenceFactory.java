@@ -8,23 +8,28 @@ import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.AddVoteImp
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.GetActiveVotingsImpl;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.GetVOptionsImpl;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.HasVotedImpl;
+import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.VoterService;
 
 public class PersistenceFactory {
 
 	
-	public AddVote newAddVote(){
+	public static AddVote newAddVote(){
 		return new AddVoteImpl();
 	}
 	
-	public GetActiveVotings newGetActiveVotings(){
+	public static GetActiveVotings newGetActiveVotings(){
 		return new GetActiveVotingsImpl();
 	}
 	
-	public GetVOptions newGetVOptions(){
+	public static GetVOptions newGetVOptions(){
 		return new GetVOptionsImpl();
 	}
 	
-	public HasVoted newHasVoted(){
+	public static HasVoted newHasVoted(){
 		return new HasVotedImpl();
+	}
+	
+	public static VoterService newVoterService(){
+		return new VoterService();
 	}
 }

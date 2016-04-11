@@ -11,5 +11,5 @@ public interface VoterRepository extends CrudRepository<Voter,Serializable> {
 	
 	List<Voter> findOne(Long id);
 	
-	List<Voter> findOneByEmail(Long id);
+	Voter findOneByEmail(String email);
 }

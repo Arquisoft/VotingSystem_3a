@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import es.uniovi.asw.model.VotoConfirmado;
 
-public interface ConfirmedVoteRespository extends CrudRepository<VotoConfirmado, Long>{
+public interface ConfirmedVoteRepository extends CrudRepository<VotoConfirmado, Long>{
 
 	
 	List<VotoConfirmado>findAll();
