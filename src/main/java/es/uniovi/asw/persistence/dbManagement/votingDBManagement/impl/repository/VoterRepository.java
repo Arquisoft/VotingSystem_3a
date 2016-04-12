@@ -9,7 +9,7 @@ import es.uniovi.asw.model.Voter;
 
 public interface VoterRepository extends CrudRepository<Voter,Serializable> {
 	
-	List<Voter> findOne(Long id);
+	List<Voter> findAll();
 	
 	Voter findOneByEmail(String email);
 }

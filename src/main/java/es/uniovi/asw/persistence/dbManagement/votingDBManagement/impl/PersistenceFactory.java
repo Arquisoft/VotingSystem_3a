@@ -1,14 +1,10 @@
-package es.uniovi.asw.persistence.dbManagement;
+package es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl;
 
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.AddVote;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.GetActiveVotings;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.GetVOptions;
+import es.uniovi.asw.persistence.dbManagement.votingDBManagement.GetVoters;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.HasVoted;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.AddVoteImpl;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.GetActiveVotingsImpl;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.GetVOptionsImpl;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.HasVotedImpl;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.VoterService;
 
 public class PersistenceFactory {
 
@@ -29,7 +25,7 @@ public class PersistenceFactory {
 		return new HasVotedImpl();
 	}
 	
-	public static VoterService newVoterService(){
-		return new VoterService();
+	public static GetVoters newGetVoters(){
+		return new GetVotersImpl();
 	}
 }
