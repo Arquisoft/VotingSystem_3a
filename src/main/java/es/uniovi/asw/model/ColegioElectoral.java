@@ -76,15 +76,26 @@ public class ColegioElectoral {
 		this.circunscripcion = circunscripcion;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((circunscripcion == null) ? 0 : circunscripcion.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((poblacion == null) ? 0 : poblacion.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -94,24 +105,14 @@ public class ColegioElectoral {
 		if (getClass() != obj.getClass())
 			return false;
 		ColegioElectoral other = (ColegioElectoral) obj;
-		if (circunscripcion == null) {
-			if (other.circunscripcion != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!circunscripcion.equals(other.circunscripcion))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (poblacion == null) {
-			if (other.poblacion != null)
-				return false;
-		} else if (!poblacion.equals(other.poblacion))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ColegioElectoral [circunscripcion=" + circunscripcion + ", votos=" + votos + ", votantes=" + votantes
