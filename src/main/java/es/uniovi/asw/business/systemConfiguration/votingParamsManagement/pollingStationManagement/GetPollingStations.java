@@ -6,8 +6,8 @@ import es.uniovi.asw.model.Circunscripcion;
 import es.uniovi.asw.model.ColegioElectoral;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.GetPollingStationsP;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PersistenceFactory;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CircunscripcionRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.PollingStationRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
 
 class GetPollingStations {
 	

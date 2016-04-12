@@ -5,8 +5,8 @@ import java.util.List;
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.AddCandidacyC;
 import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.PersistenceFactory;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.CandidacyRepository;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 class ConfCandidacy {
 	

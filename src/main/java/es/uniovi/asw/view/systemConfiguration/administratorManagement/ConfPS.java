@@ -3,7 +3,7 @@ package es.uniovi.asw.view.systemConfiguration.administratorManagement;
 import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.SysConfigServiceFactory;
 import es.uniovi.asw.business.systemConfiguration.votingParamsManagement.pollingStationManagement.PollingStationService;
 import es.uniovi.asw.model.ColegioElectoral;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.PollingStationRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
 
 public class ConfPS {
 	

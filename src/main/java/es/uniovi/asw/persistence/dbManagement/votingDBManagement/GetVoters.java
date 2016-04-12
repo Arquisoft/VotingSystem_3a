@@ -3,7 +3,7 @@ package es.uniovi.asw.persistence.dbManagement.votingDBManagement;
 import java.util.List;
 
 import es.uniovi.asw.model.Voter;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.repository.VoterRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 
 public interface GetVoters {
 	
