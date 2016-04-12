@@ -28,7 +28,7 @@ public class Main {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView adminIndex(@ModelAttribute Voter voter, Model model) {
 		LOG.info("Panel de administración");
-		String resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword(),model);
+		String resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword());
 		if (resultado.equals("admin")) {
 			return new ModelAndView("admin_index");
 		} else if (resultado.equals("voter")) {

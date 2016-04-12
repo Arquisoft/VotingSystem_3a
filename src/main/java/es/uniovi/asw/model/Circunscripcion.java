@@ -58,6 +58,10 @@ public class Circunscripcion {
 		this.nombre = nombre;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
