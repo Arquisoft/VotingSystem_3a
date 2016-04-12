@@ -9,8 +9,8 @@ import es.uniovi.asw.model.VotoConfirmado;
 public interface ConfirmedVoteRepository extends CrudRepository<VotoConfirmado, Long>{
 
 	
-	List<VotoConfirmado>findAll();
+	List<VotoConfirmado> findAll();
 	
-	VotoConfirmado findOne(Long id);
+	List<VotoConfirmado> findByHaVotadoTrue();
 	
 }

@@ -15,4 +15,6 @@ public interface VotingRepository extends CrudRepository<Eleccion, Long> {
 
 	Eleccion findOne(Long id);
 
+	List<Eleccion> findByActivaTrue();
+
 }
