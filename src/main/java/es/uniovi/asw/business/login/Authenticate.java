@@ -3,8 +3,8 @@ package es.uniovi.asw.business.login;
 
 
 import es.uniovi.asw.model.Voter;
+import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.repository.VoterRepository;
 
 public class Authenticate {
 

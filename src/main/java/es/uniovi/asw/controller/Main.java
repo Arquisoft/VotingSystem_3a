@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.business.login.Authenticate;
 import es.uniovi.asw.model.Voter;
-import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.repository.VoterRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 
 @Controller
 public class Main {

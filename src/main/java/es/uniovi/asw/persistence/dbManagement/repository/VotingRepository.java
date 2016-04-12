@@ -1,4 +1,4 @@
-package es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.repository;
+package es.uniovi.asw.persistence.dbManagement.repository;
 
 import java.util.List;
 
