@@ -1,5 +1,7 @@
 package es.uniovi.asw.business.votingSystem.votingManagement.impl;
 
-class GetVotingOptionsImpl {
+import es.uniovi.asw.business.votingSystem.votingManagement.GetVotingOptions;
+
+class GetVotingOptionsImpl implements GetVotingOptions{
 
 }

@@ -3,13 +3,14 @@ package es.uniovi.asw.business.votingSystem.votingManagement.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.uniovi.asw.business.votingSystem.votingManagement.AlreadyVoted;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
 
-class AlreadyVotedImpl {
+class AlreadyVotedImpl implements AlreadyVoted{
 
 	public List<Eleccion> haVotado(List<Eleccion> activas, Voter votante, ConfirmedVoteRepository cvRep) {
 		List<Eleccion> resultado = new ArrayList<Eleccion>();

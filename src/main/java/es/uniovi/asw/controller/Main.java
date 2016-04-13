@@ -1,5 +1,7 @@
 package es.uniovi.asw.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import es.uniovi.asw.business.login.Authenticate;
+import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
+import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
+import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
 
 @Controller
 public class Main {
@@ -20,6 +27,12 @@ public class Main {
 
 	@Autowired
 	private VoterRepository vtRep;
+	
+	@Autowired
+	private VotingRepository vRep;
+	
+	@Autowired
+	private ConfirmedVoteRepository cvRep;
 
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
@@ -39,6 +52,9 @@ public class Main {
 			return new ModelAndView("admin_index");
 		} else if (resultado.equals("voter")) {
 			model.addAttribute("voter", voter);
+			List<Eleccion> lista = new GetAV(vRep).getEleccionesActivas();
+			List<Eleccion> listaVotados = new AlreadyV(cvRep).yaHaVotado(lista, voter);
+			model.addAttribute("eleccionesHaVotado", listaVotados);
 			model.addAttribute("voter");
 			return new ModelAndView("voter_index");
 		} else if (resultado.equals("president")) {
