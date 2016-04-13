@@ -103,6 +103,10 @@ public class Voter {
 	public void setElecciones(Set<VotoConfirmado> elecciones) {
 		this.elecciones = elecciones;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public String toString() {

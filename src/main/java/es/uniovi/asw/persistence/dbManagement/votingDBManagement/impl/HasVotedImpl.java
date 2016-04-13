@@ -8,7 +8,7 @@ import es.uniovi.asw.persistence.dbManagement.votingDBManagement.HasVoted;
 
 class HasVotedImpl implements HasVoted {
 	
-	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep, Long idEleccion, Long idVotante){
+	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep){
 		return cvRep.findByHaVotadoTrue();
 	}
 

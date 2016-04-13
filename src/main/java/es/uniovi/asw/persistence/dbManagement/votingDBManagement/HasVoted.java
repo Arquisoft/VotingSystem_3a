@@ -7,6 +7,6 @@ import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository
 
 public interface HasVoted {
 	
-	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep, Long idEleccion, Long idVotante);
+	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep);
 
 }
