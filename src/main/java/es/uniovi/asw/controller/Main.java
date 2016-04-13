@@ -30,6 +30,7 @@ import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
+import es.uniovi.asw.view.votingSystem.voterManagement.HasVoted;
 
 @RestController
 public class Main {
@@ -113,6 +114,15 @@ public class Main {
 	public ModelAndView adminIndexConfPollings(Model model) {
 		model.addAttribute("colegios", new GetPS(pRep).getPollingStations());
 		return new ModelAndView("list_pollings");
+	}
+
+	@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
+	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
+		
+		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
+		model.addAttribute("hasVote", hasVote);
+
+		return new ModelAndView("president_index");
 	}
 
 	@RequestMapping(value = "/conf_options", method = RequestMethod.POST, params = "save_conf")
