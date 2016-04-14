@@ -13,4 +13,9 @@ public interface ConfirmedVoteRepository extends CrudRepository<VotoConfirmado, 
 	
 	List<VotoConfirmado> findByHaVotadoTrue();
 	
+	@SuppressWarnings("unchecked")
+	VotoConfirmado save(VotoConfirmado vc);
+	
+	
+	
 }

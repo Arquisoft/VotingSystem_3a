@@ -9,4 +9,6 @@ public interface HasVoted {
 	
 	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep);
 
+	public boolean alreadyVoted(ConfirmedVoteRepository cvRep, Long idVotante, Long idEleccion);
+	
 }

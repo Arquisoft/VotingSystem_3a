@@ -7,6 +7,7 @@ import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 public interface GetActiveVotings {
 	
+	List<Eleccion> getActiveVotings(VotingRepository vr);
 
 	public List<Eleccion> eleccionesActivas(VotingRepository vRep);
 	
