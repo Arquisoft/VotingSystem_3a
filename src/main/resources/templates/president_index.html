@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/header :: head">
+</head>
+<body>
+<div class="page-header">
+   <h1>Página de presidente de mesa<small> Sistema de votación</small></h1>
+   
+   <form th:action="@{/president_index}" method="post">
+   	<input type="text" name="voterEmail"/>
+   	<input type="submit" value="Check voter"/>
+   </form>
+   
+   <p>Has vote: <span th:text="${hasVote}">undefined</span></p>
+   
+</div>
+</body>
+</html>

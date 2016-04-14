@@ -119,6 +119,4 @@ public class ColegioElectoral {
 				+ ", nombre=" + nombre + ", poblacion=" + poblacion + "]";
 	}
 	
-	
-
 }

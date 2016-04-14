@@ -171,6 +171,4 @@ public class Eleccion {
 			return false;
 		return true;
 	}
-	
-	
 }

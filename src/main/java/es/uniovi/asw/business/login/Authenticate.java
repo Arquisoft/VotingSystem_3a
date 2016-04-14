@@ -21,7 +21,6 @@ public class Authenticate {
 			return "president";
 		}
 		return "incorrecto";
-
 	}
 
 }
