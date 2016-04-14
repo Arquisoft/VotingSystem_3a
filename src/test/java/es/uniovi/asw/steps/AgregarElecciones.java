@@ -23,7 +23,7 @@ import cucumber.api.java.es.Entonces;
 import es.uniovi.asw.Application;
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.adminDBManagement.impl.repository.VotingRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 @ContextConfiguration(classes=Application.class, loader=SpringApplicationContextLoader.class)
 @IntegrationTest
