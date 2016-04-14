@@ -9,7 +9,12 @@ import es.uniovi.asw.persistence.dbManagement.votingDBManagement.GetVoters;
 class GetVotersImpl implements GetVoters{
 	
 	public Voter findByEmail(String email, VoterRepository vtRep){
-		return vtRep.findOneByEmail(email);
+		List<Voter> votantes = vtRep.findAll();
+		for(Voter v : votantes){
+			if(v.getEmail().equals(email))
+				return v;
+		}
+		return null;
 	}
 	
 	public List<Voter> findAll(VoterRepository vtRep){

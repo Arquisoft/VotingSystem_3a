@@ -47,14 +47,14 @@ public class Main {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView adminIndex(@ModelAttribute Voter voter, Model model) {
 		LOG.info("Panel de administración");
-		String resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword(),  vtRep, voter);
+		String resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword(), vtRep, voter);
+		System.out.println("res: " + resultado);
 		if (resultado.equals("admin")) {
 			return new ModelAndView("admin_index");
 		} else if (resultado.equals("voter")) {
 			model.addAttribute("voter", voter);
 			List<Eleccion> lista = new GetAV(vRep).getEleccionesActivas();
-			List<Eleccion> listaVotados = new AlreadyV(cvRep).yaHaVotado(lista, voter);
-			model.addAttribute("eleccionesHaVotado", listaVotados);
+			model.addAttribute("eleccionesHaVotado", lista);
 			model.addAttribute("voter");
 			return new ModelAndView("voter_index");
 		} else if (resultado.equals("president")) {
