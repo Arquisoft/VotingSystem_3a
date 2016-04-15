@@ -21,9 +21,12 @@ import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
+import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
@@ -45,6 +48,10 @@ public class Main {
 	private CircunscripcionRepository ciRep;
 	@Autowired
 	private VoterRepository vtRep;
+	@Autowired
+	private EleccionRepository eRep;
+	@Autowired
+	private ConfirmedVoteRepository cvRep;
 
     @RequestMapping(value="/",method=RequestMethod.GET)
 
@@ -68,6 +75,7 @@ public class Main {
 			model.addAttribute("voter");
 			return new ModelAndView("voter_index");
 		} else if (resultado.equals("president")) {
+			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
 			return new ModelAndView("president_index");
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
@@ -191,7 +199,33 @@ public class Main {
 
 		return new ModelAndView("president_index");
 	}*/
+
+	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
+	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
+		
+		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
+		model.addAttribute("hasVote", hasVote);
+
+		return new ModelAndView("president_index");
+	}*/
+
+	@RequestMapping(value = "/president_addpv", method = RequestMethod.POST)
+	public ModelAndView presidentIndexCheckVoter(
+				@RequestParam(value = "voterDNI", required = true) String voterDNI,
+				@RequestParam(value = "eleccionId", required = true) Long eleccionId,
+				Model model) {
 	
+		boolean resultado = new AddPV(cvRep, vtRep, eRep).addPV(voterDNI, eleccionId);
+		if (resultado) {
+			model.addAttribute("mensaje", "Votante registrado");
+		}
+		else {
+			model.addAttribute("mensaje", "El votante no se registro (dni o elección no válidas)");
+		}
+		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+
+		return new ModelAndView("president_index");
+	}
 	
 	//Parte de voto remoto
 }

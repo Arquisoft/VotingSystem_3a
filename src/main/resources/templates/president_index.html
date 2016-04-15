@@ -6,12 +6,30 @@
 <div class="page-header">
    <h1>Página de presidente de mesa<small> Sistema de votación</small></h1>
    
+   <div th:if="${mensaje != null}" th:text="${mensaje}"></div>
+   
    <form th:action="@{/president_index}" method="post">
    	<input type="text" name="voterEmail"/>
    	<input type="submit" value="Check voter"/>
    </form>
    
    <p>Has vote: <span th:text="${hasVote}">undefined</span></p>
+
+   <form th:action="@{/president_addpv}" method="post">
+   	<div>
+   		<label for="dni">DNI</label>
+   		<input id="dni" type="text" name="voterDNI"/>
+   	</div>
+   	<div>
+   		<label for="eleccion">Eleccion</label>
+	   	<select id="eleccion" name="eleccionId">
+	   		<option value="-1">Selecciona una eleccion</option>
+			<option th:each="eleccion : ${elecciones}" 
+	                th:value="${eleccion.id}" th:text="${eleccion.nombre}"></option>   		
+	   	</select>
+   	</div>
+   	<input type="submit" value="Check voter"/>
+   </form>
    
 </div>
 </body>
