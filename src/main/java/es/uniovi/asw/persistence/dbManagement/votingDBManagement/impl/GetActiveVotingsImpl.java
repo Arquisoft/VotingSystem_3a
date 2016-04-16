@@ -26,5 +26,9 @@ class GetActiveVotingsImpl implements GetActiveVotings {
 	public List<Eleccion> eleccionesActivas(VotingRepository vRep){
 		return vRep.findByActivaTrue();
 	}
+	
+	public Eleccion buscarPorId(VotingRepository vRep, Long idEleccion){
+		return vRep.findOne(idEleccion);
+	}
 
 }

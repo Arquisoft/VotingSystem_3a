@@ -11,4 +11,6 @@ public interface GetActiveVotings {
 
 	public List<Eleccion> eleccionesActivas(VotingRepository vRep);
 	
+	public Eleccion buscarPorId(VotingRepository vRep, Long idEleccion);
+	
 }

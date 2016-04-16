@@ -1,25 +1,23 @@
 package es.uniovi.asw.view.votingSystem.voterManagement;
 
-import java.util.List;
-
 import es.uniovi.asw.business.votingSystem.votingManagement.impl.ServicesFactory;
-import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 public class AlreadyV {
 	
 	ConfirmedVoteRepository cvRep;
+	VotingRepository vRep;
 	
-	List<Eleccion> votadas;
 	
-	public AlreadyV(ConfirmedVoteRepository cvRep){
+	public AlreadyV(ConfirmedVoteRepository cvRep, VotingRepository vRep){
 		this.cvRep = cvRep;
+		this.vRep = vRep;
 	}
 	
-	public List<Eleccion> yaHaVotado(List<Eleccion> activas, Voter votante){
-		votadas = ServicesFactory.newAlreadyVoted().haVotado(activas, votante, cvRep);
-		return votadas;
+	public boolean yaHaVotado(Long id, Voter votante){
+		return ServicesFactory.newAlreadyVoted().haVotado(id, votante, cvRep, vRep);
 	}
 
 }

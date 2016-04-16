@@ -7,10 +7,6 @@ import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.HasVoted;
 
 class HasVotedImpl implements HasVoted {
-	
-	public List<VotoConfirmado> haVotado(ConfirmedVoteRepository cvRep){
-		return cvRep.findByHaVotadoTrue();
-	}
 
 	@Override
 	public boolean alreadyVoted(ConfirmedVoteRepository cvRep, Long idVotante, Long idEleccion) {
