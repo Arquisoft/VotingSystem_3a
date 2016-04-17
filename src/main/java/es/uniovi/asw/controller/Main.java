@@ -189,6 +189,13 @@ public class Main {
 		return new ModelAndView("show_candidacys");
 	}
 	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ModelAndView logout() {
+		return new ModelAndView("index");
+	}
+	
+	
+	
 	//Parte de administración de voto físico
 	
 	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
