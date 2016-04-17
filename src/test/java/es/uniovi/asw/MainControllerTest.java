@@ -63,11 +63,4 @@ public class MainControllerTest {
   public void adminIndexConfPollings() throws Exception {
 	  mvc.perform(post("/admin_index").param("pollingStation", "")).andExpect(status().isOk()).andExpect(content().string(containsString("de configuración de colegios")));
   }
-  
-  @Test
-  public void adminIndexConfPollings2() throws Exception {
-	  mvc.perform(post("/list_pollings").param("p_params", "1")).andExpect(status().isOk()).andExpect(content().string(containsString("Colegios electorales")));
-  }
-  
-  
 }

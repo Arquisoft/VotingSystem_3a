@@ -1,8 +1,11 @@
 package es.uniovi.asw.steps;
 
 import static org.junit.Assert.assertEquals;
+
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,7 +26,6 @@ import cucumber.api.java.es.Entonces;
 import es.uniovi.asw.Application;
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 @ContextConfiguration(classes=Application.class, loader=SpringApplicationContextLoader.class)
 @IntegrationTest
@@ -39,15 +41,15 @@ public class AgregarElecciones {
   @Value("${local.server.port}")
   protected int port;
   
-  @Autowired
-  protected VotingRepository vRep;
   protected List<Eleccion> elecciones;
   protected Date date;
 
   
   @Dado("^una lista con las elecciones activas$")
   public void una_lista_con_las_elecciones_activas() throws Throwable {
-      elecciones = vRep.findAll();
+      elecciones = new ArrayList<Eleccion>();
+      elecciones.add(new Eleccion("Eleccion 1", new Date(), new Date(), new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis())));
+      elecciones.add(new Eleccion("Eleccion 2", new Date(), new Date(), new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis())));
   }
 
   @Cuando("^creamos unas elecciones con un nombre \"([^\"]*)\",un numero de opciones de (\\d+) y una fecha de inicio de \"([^\"]*)\"$")
@@ -62,12 +64,11 @@ public class AgregarElecciones {
       for(int i = 0; i< arg2 ; i++){
     	  e.getOpciones().add(new Candidatura("Candidatura " + i ));
       }
-      vRep.save(e);
+      elecciones.add(e);
   }
 
   @Entonces("^comprobamos que para la fecha \"([^\"]*)\" existe una eleccion almacenada$")
   public void comprobamos_que_para_la_fecha_existe_una_eleccion_almacenada(String arg1) throws Throwable {
-	  elecciones = vRep.findAll();
 	  for(Eleccion e : elecciones){
 		  if(e.getFechaInicio().equals(date)){
 			  assertEquals(date, e.getFechaInicio());
