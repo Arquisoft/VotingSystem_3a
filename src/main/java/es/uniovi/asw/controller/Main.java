@@ -102,9 +102,9 @@ public class Main {
 
 	@RequestMapping(value = "/admin_index", method = RequestMethod.POST, params = "action")
 	public ModelAndView adminIndexActivate(@RequestParam(value = "action", required = true) String id, Model model) {
-		new ConfVT(vRep, Long.parseLong(id)).updateEleccion();
 		model.addAttribute("eleccion", new Eleccion());
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		new ConfVT(vRep, Long.parseLong(id)).updateEleccion();
 		return new ModelAndView("admin_index");
 	}
 

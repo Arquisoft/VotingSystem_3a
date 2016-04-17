@@ -2,6 +2,7 @@ package es.uniovi.asw;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,5 +38,36 @@ public class MainControllerTest {
   public void testLanding() throws Exception {
     mvc.perform(get("/")).andExpect(status().isOk()).andExpect(content().string(containsString("Log-in")));
   }
-
+  
+  @Test
+  public void adminIndexGet() throws Exception {
+    mvc.perform(post("/admin_index")).andExpect(status().isOk()).andExpect(content().string(containsString("elecciones")));
+  }
+  
+  @Test
+  public void showVotings() throws Exception {
+	  mvc.perform(post("/").param("get_cand", "")).andExpect(status().isOk()).andExpect(content().string(containsString("elecciones")));
+  }
+  
+  @Test
+  public void adminIndexActivate() throws Exception {
+	  mvc.perform(post("/admin_index").param("action", "1")).andExpect(status().isOk()).andExpect(content().string(containsString("Panel de")));
+  }
+  
+  @Test
+  public void adminIndexConfOptions() throws Exception {
+	  mvc.perform(post("/admin_index").param("conf", "1")).andExpect(status().isOk()).andExpect(content().string(containsString("de candidaturas")));
+  }
+  
+  @Test
+  public void adminIndexConfPollings() throws Exception {
+	  mvc.perform(post("/admin_index").param("pollingStation", "")).andExpect(status().isOk()).andExpect(content().string(containsString("de configuración de colegios")));
+  }
+  
+  @Test
+  public void adminIndexConfPollings2() throws Exception {
+	  mvc.perform(post("/list_pollings").param("p_params", "1")).andExpect(status().isOk()).andExpect(content().string(containsString("Colegios electorales")));
+  }
+  
+  
 }
