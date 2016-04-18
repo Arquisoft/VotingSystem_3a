@@ -9,7 +9,7 @@ import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.Persistenc
 
 class AlreadyVotedImpl implements AlreadyVoted{
 
-	public boolean haVotado(Long idEleccion, Voter votante, ConfirmedVoteRepository cvRep, VotingRepository vRep) {
+	public boolean haVotado(Long idEleccion, Voter votante, ConfirmedVoteRepository cvRep) {
 		return PersistenceFactory.newHasVoted().alreadyVoted(cvRep, votante.getId(), idEleccion);
 	}
 

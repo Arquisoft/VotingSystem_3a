@@ -30,6 +30,7 @@ import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
 import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
@@ -42,17 +43,17 @@ public class Main {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
-	@Autowired
+	@Autowired(required = true)
 	private VotingRepository vRep;
-	@Autowired
+	@Autowired(required = true)
 	private CandidacyRepository cRep;
-	@Autowired
+	@Autowired(required = true)
 	private PollingStationRepository pRep;
-	@Autowired
+	@Autowired(required = true)
 	private CircunscripcionRepository ciRep;
-	@Autowired
+	@Autowired(required = true)
 	private VoterRepository vtRep;
-	@Autowired
+	@Autowired(required = true)
 	private ConfirmedVoteRepository cvRep;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -76,7 +77,7 @@ public class Main {
 			Voter v = (Voter) resultado[1];
 			sesion.setAttribute("voter", v);
 			List<Eleccion> lista = new GetAV(vRep).getEleccionesActivas();
-			model.addAttribute("eleccionesHaVotado", lista);
+			sesion.setAttribute("eleccionesHaVotado", lista);
 			return new ModelAndView("voter_index");
 		} else if (resultado[0].equals("president")) {
 			return new ModelAndView("president_index");
@@ -211,10 +212,10 @@ public class Main {
 	@RequestMapping(value = "/voter_index", method = RequestMethod.POST)
 	public ModelAndView voterIndexVote(HttpSession sesion, @RequestParam(value = "vote", required = true) String e,
 			Model model) {
-		if (new AlreadyV(cvRep, vRep).yaHaVotado(Long.parseLong(e), (Voter) sesion.getAttribute("voter"))) {
+		if (!new AlreadyV(cvRep).yaHaVotado(Long.parseLong(e), (Voter) sesion.getAttribute("voter"))) {
+			model.addAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
 			return new ModelAndView("show_options");
-		}
-		else{
+		} else {
 			model.addAttribute("error", "error, ya ha votado en esta elección");
 			return new ModelAndView("voter_index");
 		}

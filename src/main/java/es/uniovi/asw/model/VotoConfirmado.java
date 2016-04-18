@@ -14,7 +14,7 @@ public class VotoConfirmado {
 	
 	@Id @GeneratedValue
 	private Long id;
-	
+
 	@Id @ManyToOne private Voter votante;
 	@Id @ManyToOne private Eleccion eleccion;
 	private boolean haVotado;
@@ -43,6 +43,14 @@ public class VotoConfirmado {
 	}
 	public void setHaVotado(boolean haVotado) {
 		this.haVotado = haVotado;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	@Override

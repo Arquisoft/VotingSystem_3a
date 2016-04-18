@@ -13,4 +13,8 @@ class GetVOptionsImpl implements GetVOptions {
 		return cRep.findByEleccion(eleccion);
 	}
 	
+	public List<Candidatura> findAll(CandidacyRepository cRep){
+		return cRep.findAll();
+	}
+	
 }

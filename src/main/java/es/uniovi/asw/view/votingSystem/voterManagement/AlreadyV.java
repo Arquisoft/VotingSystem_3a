@@ -8,16 +8,14 @@ import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 public class AlreadyV {
 	
 	ConfirmedVoteRepository cvRep;
-	VotingRepository vRep;
 	
 	
-	public AlreadyV(ConfirmedVoteRepository cvRep, VotingRepository vRep){
+	public AlreadyV(ConfirmedVoteRepository cvRep){
 		this.cvRep = cvRep;
-		this.vRep = vRep;
 	}
 	
 	public boolean yaHaVotado(Long id, Voter votante){
-		return ServicesFactory.newAlreadyVoted().haVotado(id, votante, cvRep, vRep);
+		return ServicesFactory.newAlreadyVoted().haVotado(id, votante, cvRep);
 	}
 
 }
