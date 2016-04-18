@@ -11,7 +11,7 @@ import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.AddVote;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
 
-public class AddPhisicalVoteImpl implements AddPhisicalVote {
+public class AddPhysicalVoteImpl implements AddPhisicalVote {
 
 	@Override
 	public boolean add(String dniVoter, long idElection,

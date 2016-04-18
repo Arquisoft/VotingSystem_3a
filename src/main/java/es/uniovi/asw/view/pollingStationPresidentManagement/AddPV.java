@@ -2,7 +2,7 @@ package es.uniovi.asw.view.pollingStationPresidentManagement;
 
 
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.AddPhisicalVote;
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.AddPhisicalVoteImpl;
+import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.AddPhysicalVoteImpl;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
@@ -22,7 +22,7 @@ public class AddPV {
 	}
 
 	public boolean addPV(String dniVoter, long idElection) {
-		AddPhisicalVote addPhisicalVote = new AddPhisicalVoteImpl();		
+		AddPhisicalVote addPhisicalVote = new AddPhysicalVoteImpl();		
 		return addPhisicalVote.add(dniVoter, idElection,
 				cvRep, vRep, eRep);
 	}
