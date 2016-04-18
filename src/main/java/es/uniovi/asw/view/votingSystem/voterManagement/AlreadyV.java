@@ -3,8 +3,6 @@ package es.uniovi.asw.view.votingSystem.voterManagement;
 import es.uniovi.asw.business.votingSystem.votingManagement.impl.ServicesFactory;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
-import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
-
 public class AlreadyV {
 	
 	ConfirmedVoteRepository cvRep;
