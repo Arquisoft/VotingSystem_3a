@@ -5,36 +5,27 @@ import java.io.Serializable;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 
+
 public class VotoConfirmadoKey implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
+	private Long votante;
+	private Long eleccion;
 	
-	private Long id;
-	private Voter votante;
-	private Eleccion eleccion;
+	 public VotoConfirmadoKey(){}
+	    public VotoConfirmadoKey(Voter v, Eleccion e){
+	        votante = v.getId();
+	        eleccion = e.getId();
+	    }
 	
-	public VotoConfirmadoKey(){
-		
-	}
-	
-	public VotoConfirmadoKey(Long id, Eleccion e, Voter v){
-		this.id = id;
-		votante = v;
-		eleccion = e;
-	}	
-	
-	public Voter getVotante() {
+	public Long getVotante() {
 		return votante;
 	}
 
-	public Eleccion getEleccion() {
+	public Long getEleccion() {
 		return eleccion;
-	}
-	
-
-	public Long getId() {
-		return id;
-	}
+	}	
 
 	@Override
 	public int hashCode() {

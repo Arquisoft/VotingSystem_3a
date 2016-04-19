@@ -26,11 +26,13 @@ import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
 import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
 import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
+import es.uniovi.asw.view.votingSystem.voterManagement.VoteV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
@@ -43,18 +45,20 @@ public class Main {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
-	@Autowired(required = true)
+	@Autowired
 	private VotingRepository vRep;
-	@Autowired(required = true)
+	@Autowired
 	private CandidacyRepository cRep;
-	@Autowired(required = true)
+	@Autowired
 	private PollingStationRepository pRep;
-	@Autowired(required = true)
+	@Autowired
 	private CircunscripcionRepository ciRep;
-	@Autowired(required = true)
+	@Autowired
 	private VoterRepository vtRep;
-	@Autowired(required = true)
+	@Autowired
 	private ConfirmedVoteRepository cvRep;
+	@Autowired
+	private VoteRepository voRep;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
@@ -210,15 +214,28 @@ public class Main {
 	// Parte de voto remoto
 
 	@RequestMapping(value = "/voter_index", method = RequestMethod.POST)
-	public ModelAndView voterIndexVote(HttpSession sesion, @RequestParam(value = "vote", required = true) String e,
+	public ModelAndView voterIndexVote(HttpSession sesion, @RequestParam(name = "vote", required = true) String e,
 			Model model) {
 		if (!new AlreadyV(cvRep).yaHaVotado(Long.parseLong(e), (Voter) sesion.getAttribute("voter"))) {
-			model.addAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
+			sesion.setAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
 			return new ModelAndView("show_options");
 		} else {
 			model.addAttribute("error", "error, ya ha votado en esta elección");
 			return new ModelAndView("voter_index");
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/show_options", method = RequestMethod.POST)
+	public ModelAndView voterVote(HttpSession sesion,@RequestParam(name = "decision") String id, List<Candidatura> opciones, Model model) {
+		for(Candidatura c : (List<Candidatura>) sesion.getAttribute("opciones")){
+			if(c.getId().equals(Long.parseLong(id)))
+				new VoteV(vRep,vtRep, voRep, cvRep).meterVoto(c, (Voter) sesion.getAttribute("voter"));
+		}
+		return new ModelAndView("voter_index");
+		
+	}
+
+	
 
 }

@@ -8,7 +8,6 @@ public class Authenticate {
 
 	public static Object[] authenticate(String user, String password, VoterRepository vtRep, Voter voter) {
 		Voter votante = PersistenceFactory.newGetVoters().findByEmail(user, vtRep);
-		System.out.println(votante);
 		if (votante != null) {
 			if (votante.getPassword().equals(password)) {
 				voter = votante;

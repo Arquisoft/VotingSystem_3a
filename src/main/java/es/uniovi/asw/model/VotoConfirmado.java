@@ -12,14 +12,14 @@ import es.uniovi.asw.model.types.VotoConfirmadoKey;
 @IdClass( VotoConfirmadoKey.class )
 public class VotoConfirmado {
 	
-	@Id @GeneratedValue
-	private Long id;
+	@GeneratedValue
+	private Long entityId;
 
 	@Id @ManyToOne private Voter votante;
 	@Id @ManyToOne private Eleccion eleccion;
 	private boolean haVotado;
 	
-	VotoConfirmado() {}
+	public VotoConfirmado() {}
 	
 	public VotoConfirmado(Voter voter, Eleccion eleccion){
 		Asociacion.EleccionVotoConfirmado.link(eleccion, this);
@@ -46,11 +46,11 @@ public class VotoConfirmado {
 	}
 	
 	public Long getId() {
-		return id;
+		return entityId;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
+	
+	public void setId(Long id){
+		entityId = id;
 	}
 	
 	@Override

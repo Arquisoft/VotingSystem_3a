@@ -78,7 +78,7 @@ public class Candidatura {
 
 	@Override
 	public String toString() {
-		return "Candidatura [id=" + id + ", eleccion=" + eleccion + ", nombre=" + nombre + ", descripcion="
+		return "Candidatura [id=" + id + ", eleccion=" + eleccion.getNombre() + ", nombre=" + nombre + ", descripcion="
 				+ descripcion + ", programaElectoral=" + programaElectoral + ", votos=" + votos + "]";
 	}
 
