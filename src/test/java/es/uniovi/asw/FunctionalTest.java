@@ -20,16 +20,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.Assert;
 import org.springframework.web.context.WebApplicationContext;
 
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.model.Eleccion;
+import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
+import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -43,6 +49,8 @@ public class FunctionalTest {
   private VotingRepository vRep;
   @Autowired
   private CandidacyRepository cRep;
+  @Autowired
+  private ConfirmedVoteRepository cvRep;
 
   private MockMvc mvc;
 
@@ -92,4 +100,25 @@ public class FunctionalTest {
 	  ConfCand cc = new ConfCand(vRep, cRep, cands, new Long(1));
 	  cc.saveCandidaturas();
   }
+  
+  @Test
+  public void testAlreadyV() throws Exception {
+	  Voter v = new Voter("Prueba", "a@b.c", "abc", "0000000002");
+	  AlreadyV av = new AlreadyV(cvRep);
+	  boolean respuesta = av.yaHaVotado(1L, v);
+	  Assert.isTrue(!respuesta);
+  }
+  
+  @Test
+  public void testGetAV() throws Exception {
+	  GetAV av = new GetAV(vRep);
+	  av.getEleccionesActivas();
+  }
+  
+  @Test
+  public void testGetVo() throws Exception {
+	  GetVO vo = new GetVO(cRep);
+	  vo.obtenerOpciones(1L);
+  }
+  
 }
