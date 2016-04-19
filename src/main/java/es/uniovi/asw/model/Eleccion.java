@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,7 +35,7 @@ public class Eleccion {
 	private List<Candidatura> opciones = new ArrayList<Candidatura>();
 
 	@OneToMany(mappedBy = "eleccion", targetEntity= VotoConfirmado.class)
-	private List<VotoConfirmado> votantes;
+	private Set<VotoConfirmado> votantes;
 	
 	public Eleccion(String nombre, Date inicio, Date fin, Time hInicio, Time hFin){
 		this.nombre = nombre;
@@ -96,11 +97,11 @@ public class Eleccion {
 		this.opciones = opciones;
 	}
 
-	public List<VotoConfirmado> getVotantes() {
+	public Set<VotoConfirmado> getVotantes() {
 		return votantes;
 	}
 
-	public void setVotantes(List<VotoConfirmado> votantes) {
+	public void setVotantes(Set<VotoConfirmado> votantes) {
 		this.votantes = votantes;
 	}
 

@@ -75,6 +75,7 @@ public class EmitirVoto {
 
 	@Entonces("^se almacena el voto y se registra que votó$")
 	public void se_almacena_el_voto_y_se_registra_que_votó() throws Throwable {
+		System.out.println(e);
 		Voter voter = new Voter("Paco", "info@paco.es", "ocap", "9449870L");
 		VotoConfirmado confirmado = new VotoConfirmado(voter, e);
 		confirmado.setHaVotado(true);
