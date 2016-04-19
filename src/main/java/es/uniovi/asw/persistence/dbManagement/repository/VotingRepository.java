@@ -10,9 +10,11 @@ public interface VotingRepository extends CrudRepository<Eleccion, Long> {
 	
 	@SuppressWarnings("unchecked")
 	Eleccion save(Eleccion eleccion);
-	
+
 	List<Eleccion> findAll();
-	
+
 	Eleccion findOne(Long id);
+
+	List<Eleccion> findByActivaTrue();
 
 }

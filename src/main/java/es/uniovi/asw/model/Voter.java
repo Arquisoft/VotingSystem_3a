@@ -104,7 +104,7 @@ public class Voter {
 		this.elecciones = elecciones;
 	}
 	
-	public Long getId(){
+	public Long getId() {
 		return id;
 	}
 

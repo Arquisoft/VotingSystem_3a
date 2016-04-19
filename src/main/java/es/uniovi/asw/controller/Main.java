@@ -1,5 +1,8 @@
 package es.uniovi.asw.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -24,15 +27,21 @@ import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionReposito
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
+import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
+import es.uniovi.asw.view.votingSystem.voterManagement.VoteV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
+
 @RestController
 public class Main {
 
@@ -52,9 +61,10 @@ public class Main {
 	private EleccionRepository eRep;
 	@Autowired
 	private ConfirmedVoteRepository cvRep;
+	@Autowired
+	private VoteRepository voRep;
 
-    @RequestMapping(value="/",method=RequestMethod.GET)
-
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index(Model model) {
 		LOG.info("Página de Login");
 		model.addAttribute("voter", new Voter());
@@ -63,18 +73,21 @@ public class Main {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView adminIndex(@ModelAttribute Voter voter, Model model) {
+	public ModelAndView adminIndex(@ModelAttribute Voter voter, Model model, HttpSession sesion) {
 		LOG.info("Panel de administración");
-		String resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword(), vtRep, voter);
-		if (resultado.equals("admin")) {
+		Object[] resultado = Authenticate.authenticate(voter.getEmail(), voter.getPassword(), vtRep, voter);
+		if (resultado[0].equals("admin")) {
 			model.addAttribute("eleccion", new Eleccion());
-			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+			List<Eleccion> e = new GetVT(vRep).getActiveVotings();
+			model.addAttribute("elecciones", e);
 			return new ModelAndView("admin_index");
-		} else if (resultado.equals("voter")) {
-			model.addAttribute("voter", voter);
-			model.addAttribute("voter");
+		} else if (resultado[0].equals("voter")) {
+			Voter v = (Voter) resultado[1];
+			sesion.setAttribute("voter", v);
+			List<Eleccion> lista = new GetAV(vRep).getEleccionesActivas();
+			sesion.setAttribute("eleccionesHaVotado", lista);
 			return new ModelAndView("voter_index");
-		} else if (resultado.equals("president")) {
+		} else if (resultado[0].equals("president")) {
 			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
 			return new ModelAndView("president_index");
 		} else {
@@ -189,33 +202,15 @@ public class Main {
 		return new ModelAndView("show_candidacys");
 	}
 	
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public ModelAndView logout() {
 		return new ModelAndView("index");
 	}
-	
-	
-	
-	//Parte de administración de voto físico
-	
-	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
-	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
-		
-		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
-		model.addAttribute("hasVote", hasVote);
 
-		return new ModelAndView("president_index");
-	}*/
 
-	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
-	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
-		
-		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
-		model.addAttribute("hasVote", hasVote);
-
-		return new ModelAndView("president_index");
-	}*/
-
+	// Parte de administración de voto físico
+	
 	@RequestMapping(value = "/president_addpv", method = RequestMethod.POST)
 	public ModelAndView presidentIndexCheckVoter(
 				@RequestParam(value = "voterDNI", required = true) String voterDNI,
@@ -234,5 +229,29 @@ public class Main {
 		return new ModelAndView("president_index");
 	}
 	
-	//Parte de voto remoto
+	// Parte de voto remoto
+
+		@RequestMapping(value = "/voter_index", method = RequestMethod.POST)
+		public ModelAndView voterIndexVote(HttpSession sesion, @RequestParam(name = "vote", required = true) String e,
+				Model model) {
+			if (!new AlreadyV(cvRep).yaHaVotado(Long.parseLong(e), (Voter) sesion.getAttribute("voter"))) {
+				sesion.setAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
+				return new ModelAndView("show_options");
+			} else {
+				model.addAttribute("error", "error, ya ha votado en esta elección");
+				return new ModelAndView("voter_index");
+			}
+		}
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/show_options", method = RequestMethod.POST)
+	public ModelAndView voterVote(HttpSession sesion,@RequestParam(name = "decision") String id, List<Candidatura> opciones, Model model) {
+		for(Candidatura c : (List<Candidatura>) sesion.getAttribute("opciones")){
+			if(c.getId().equals(Long.parseLong(id)))
+				new VoteV(vRep,vtRep, voRep, cvRep).meterVoto(c, (Voter) sesion.getAttribute("voter"));
+		}
+		return new ModelAndView("voter_index");
+		
+	}
+	
+
 }

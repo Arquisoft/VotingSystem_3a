@@ -14,4 +14,7 @@ public interface VoterRepository extends CrudRepository<Voter,Serializable> {
 	Voter findOneByEmail(String email);
 
 	Voter findOneByNif(String dniVoter);
+	
+	List<Voter> findByEmail(String email);
+	
 }

@@ -2,12 +2,31 @@ package es.uniovi.asw.model.types;
 
 import java.io.Serializable;
 
+import es.uniovi.asw.model.Eleccion;
+import es.uniovi.asw.model.Voter;
+
+
 public class VotoConfirmadoKey implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
+	private Long votante;
+	private Long eleccion;
 	
-	Long votante;
-	Long eleccion;
+	 public VotoConfirmadoKey(){}
+	    public VotoConfirmadoKey(Voter v, Eleccion e){
+	        votante = v.getId();
+	        eleccion = e.getId();
+	    }
+	
+	public Long getVotante() {
+		return votante;
+	}
+
+	public Long getEleccion() {
+		return eleccion;
+	}	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -37,6 +56,8 @@ public class VotoConfirmadoKey implements Serializable{
 			return false;
 		return true;
 	}
+
+
 	
 	
 

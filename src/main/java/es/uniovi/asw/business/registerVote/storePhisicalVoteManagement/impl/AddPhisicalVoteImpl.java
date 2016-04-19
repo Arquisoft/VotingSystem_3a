@@ -29,7 +29,7 @@ public class AddPhisicalVoteImpl implements AddPhisicalVote {
 		
 		VotoConfirmado voto = new VotoConfirmado(voter, eleccion);
 		
-		addVote.storeVote(cvRep, voto);
+		addVote.añadirVotoConfirmado(cvRep, voto);
 		
 		return true;
 	}
