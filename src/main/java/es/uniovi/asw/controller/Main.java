@@ -28,6 +28,8 @@ import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
 import es.uniovi.asw.view.pollingStationPresidentManagement.CheckV;
+import es.uniovi.asw.view.pollingStationPresidentManagement.GetAV;
+import es.uniovi.asw.view.pollingStationPresidentManagement.GetV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
@@ -192,24 +194,6 @@ public class Main {
 	
 	//Parte de administración de voto físico
 	
-	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
-	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
-		
-		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
-		model.addAttribute("hasVote", hasVote);
-
-		return new ModelAndView("president_index");
-	}*/
-
-	/*@RequestMapping(value = "/president_index", method = RequestMethod.POST, params = "voterEmail")
-	public ModelAndView presidentIndexCheckVoter(@RequestParam(value = "voterEmail", required = true) String voterEmail, Model model) {
-		
-		boolean hasVote = new HasVoted(vtRep).checkVote(voterEmail);
-		model.addAttribute("hasVote", hasVote);
-
-		return new ModelAndView("president_index");
-	}*/
-
 	@RequestMapping(value = "/president_addpv", method = RequestMethod.POST)
 	public ModelAndView presidentIndexCheckVoter(
 				@RequestParam(value = "voterDNI", required = true) String voterDNI,
@@ -242,6 +226,25 @@ public class Main {
 			model.addAttribute("mensaje", "El votante no ha votado");
 		}
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+
+		return new ModelAndView("president_index");
+	}
+	
+	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
+	public ModelAndView presidentCheckVoter(
+				@RequestParam(value = "eRep", required = true) EleccionRepository eRep) {
+	
+		Iterable<Eleccion> resultado = new GetAV(eRep).getAV(eRep);
+		//Duda
+
+		return new ModelAndView("president_index");
+	}
+	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
+	public ModelAndView presidentCheckVoter(
+				@RequestParam(value = "vtRep", required = true) VoterRepository vtRep) {
+	
+		Iterable<Voter> resultado = new GetV(vtRep).getV(vtRep);
+		//Duda
 
 		return new ModelAndView("president_index");
 	}
