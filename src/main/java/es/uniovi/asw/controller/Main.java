@@ -198,7 +198,8 @@ public class Main {
 
 	@RequestMapping(value = "/show_votings", method = RequestMethod.POST, params = "get_cands")
 	public ModelAndView showCandidacys(@RequestParam(value = "get_cands", required = true) String id, Model model) {
-		model.addAttribute("candidaturas", new GetCand(vRep, cRep, Long.parseLong(id)).getCandidacys());
+		List<Candidatura> candidaturas = new GetCand(vRep, cRep, Long.parseLong(id)).getCandidacys();
+		model.addAttribute("candidaturas", candidaturas);
 		return new ModelAndView("show_candidacys");
 	}
 	
@@ -238,7 +239,7 @@ public class Main {
 				sesion.setAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
 				return new ModelAndView("show_options");
 			} else {
-				model.addAttribute("error", "error, ya ha votado en esta elección");
+				model.addAttribute("error", "Error, ya ha votado en esta elección");
 				return new ModelAndView("voter_index");
 			}
 		}

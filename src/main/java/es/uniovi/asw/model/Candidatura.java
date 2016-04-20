@@ -33,6 +33,7 @@ public class Candidatura {
 	}
 	
 	public Candidatura(String nombre, Eleccion e){
+		this.nombre = nombre;
 		Asociacion.EleccionOpcion.link(e, this);
 	}
 	

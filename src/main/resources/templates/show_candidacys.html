@@ -13,12 +13,12 @@
         <div th:each="c : ${candidaturas}">
         	<br></br><br></br>
 	        <div class="row">
-	            <div class="col-md-7">
+	            <div class="col-md-7" th:if="${c.nombre != 'Voto en blanco'}">
 	                <a href="#">
-	                    <img class="img-responsive" src="http://placehold.it/700x300" alt=""/>
+	                    <img class="img-responsive" src="images/candidatura.png" alt=""/>
 	                </a>
 	            </div>
-	            <div class="col-md-5">
+	            <div class="col-md-5" th:if="${c.nombre != 'Voto en blanco'}">
 	                <h3 th:text="${c.nombre}">Project One</h3>
 	                <h4 th:text="${c.descripcion}"></h4>
 	                <a class="btn btn-primary" th:href="${c.programaElectoral}">Programa electoral</a>

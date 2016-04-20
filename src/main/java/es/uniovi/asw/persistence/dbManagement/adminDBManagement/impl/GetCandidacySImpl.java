@@ -12,6 +12,9 @@ class GetCandidacySImpl implements GetCandidacyS{
 
 	@Override
 	public List<Candidatura> getCandidacys(VotingRepository vRep, CandidacyRepository cRep, Long id) {
+		System.out.println("VRep: " + vRep);
+		System.out.println("CRep: " + cRep);
+		System.out.println("Long : " + id);
 		List<Candidatura> candidaturas = new ArrayList<Candidatura>();
 		for(Candidatura c : cRep.findAll()){
 			if(c.getEleccion().getId() == id){
