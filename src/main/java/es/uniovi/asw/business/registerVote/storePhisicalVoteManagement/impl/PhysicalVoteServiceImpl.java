@@ -5,6 +5,7 @@ import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.AddP
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.CheckVoteImpl;
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.GetActiveVotingsImpl;
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.GetVotersImpl;
+import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
@@ -43,10 +44,7 @@ public class PhysicalVoteServiceImpl implements PhysicalVoteService{
     }
 
     @Override
-    public List<VotoConfirmado> getActiveVoter(String dniVoter, long idElection,
-                                         ConfirmedVoteRepository cvRep,
-                                         VoterRepository voterRep,
-                                         EleccionRepository eRep) {
-        return new GetActiveVotingsImpl().getActiveVoter(dniVoter, idElection, cvRep, voterRep, eRep);
+    public Iterable<Eleccion> getActiveVoter(EleccionRepository eRep) {
+        return new GetActiveVotingsImpl().getActiveVoter(eRep);
     }
 }

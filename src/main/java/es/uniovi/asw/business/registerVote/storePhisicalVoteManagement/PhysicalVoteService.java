@@ -1,5 +1,6 @@
 package es.uniovi.asw.business.registerVote.storePhisicalVoteManagement;
 
+import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
@@ -18,10 +19,7 @@ public interface PhysicalVoteService {
 
     public List<Voter> getVoters(VoterRepository voterRep);
 
-    List<VotoConfirmado> getActiveVoter(String dniVoter, long idElection,
-                                        ConfirmedVoteRepository cvRep,
-                                        VoterRepository voterRep,
-                                        EleccionRepository eRep);
+    Iterable<Eleccion> getActiveVoter(EleccionRepository eRep);
 
 }
 

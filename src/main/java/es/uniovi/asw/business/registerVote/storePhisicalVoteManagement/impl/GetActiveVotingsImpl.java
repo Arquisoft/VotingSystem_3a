@@ -1,5 +1,7 @@
 package es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl;
 
+import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.GetActiveVotings;
+import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
@@ -7,16 +9,12 @@ import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 
 import java.util.List;
 
-public class GetActiveVotingsImpl {
+public class GetActiveVotingsImpl implements GetActiveVotings {
 
-    public List<VotoConfirmado> getActiveVoter(String dniVoter, long idElection,
-                                               ConfirmedVoteRepository cvRep,
-                                               VoterRepository voterRep,
-                                               EleccionRepository eRep){
+	@Override
+    public Iterable<Eleccion> getActiveVoter(EleccionRepository eRep){
 
-        //De donde coÃ±o saco el voting Repository ???
-        //PersistenceFactory.newGetActiveVotings().getActiveVotings(voterRep);
-        return null; //TODO
+        return eRep.findAll(); //TODO
 
     }
 
