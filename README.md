@@ -13,6 +13,10 @@ Voting System es un sistema de gestión de votaciones de manera on-line. Permiti
 ## Lanzamiento de la aplicación
 La aplicación puede ser lanzada ejecutando mediante línea de comandos la instrucción ```spring-boot:run``` y se accede mediante el navegador en la URI ```http://localhost:8281```
 
+También puedes ver la aplicación desplegada en Heroku presionando el botón inferior
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://votingsystem3a.herokuapp.com)
+
 ## Bases de datos de la aplicación
 Para el tratamiento de los datos se han empleado tres bases de datos diferentes:
 * ```HSQLDB``` Para los datos en producción (en local). Se encuentra disponible en el siguiente [enlace](https://www.dropbox.com/sh/g3y9b00ascxo7js/AACNzXSTuYbxXI3vyRGSJFE5a?dl=0)
