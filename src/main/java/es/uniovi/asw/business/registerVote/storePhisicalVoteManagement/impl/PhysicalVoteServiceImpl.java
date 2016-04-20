@@ -34,8 +34,8 @@ public class PhysicalVoteServiceImpl implements PhysicalVoteService{
     }
 
     @Override
-    public boolean checkVote(String dniVoter, long idElection, ConfirmedVoteRepository cvRep, VoterRepository voterRep) {
-        return new CheckVoteImpl().checkVote(dniVoter, idElection, cvRep, voterRep);
+    public boolean checkVote(long idVotante, long idEleccion, ConfirmedVoteRepository cvRep) {
+        return new CheckVoteImpl().alreadyVoted(cvRep,idVotante,idEleccion);
     }
 
     @Override

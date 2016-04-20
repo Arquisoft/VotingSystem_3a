@@ -14,8 +14,7 @@ public interface PhysicalVoteService {
 	boolean add(String dniVoter, long idElection, ConfirmedVoteRepository cvRep,
 			VoterRepository voterRep, EleccionRepository eRep);
 
-	boolean checkVote(String dniVoter, long idElection, ConfirmedVoteRepository cvRep,
-				VoterRepository voterRep);
+	boolean checkVote(long dniVoter, long idElection, ConfirmedVoteRepository cvRep);
 
     public List<Voter> getVoters(VoterRepository voterRep);
 

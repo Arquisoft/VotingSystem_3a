@@ -1,16 +1,16 @@
 package es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl;
 
 
+import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.CheckVote;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
 
-public class CheckVoteImpl {
+public class CheckVoteImpl implements CheckVote{
 
-    public boolean checkVote(String dniVoter, long idElection, ConfirmedVoteRepository cvRep, VoterRepository voterRep) {
+    public boolean alreadyVoted(ConfirmedVoteRepository cvRep, Long idVotante, Long idEleccion) {
 
-        Long idVoter=voterRep.findOneByNif(dniVoter).getId();
-        return PersistenceFactory.newHasVoted().alreadyVoted(cvRep,idVoter,idElection);
+        return PersistenceFactory.newHasVoted().alreadyVoted(cvRep,idVotante,idEleccion);
 
     }
 

@@ -27,6 +27,7 @@ import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepositor
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
+import es.uniovi.asw.view.pollingStationPresidentManagement.CheckV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
@@ -227,5 +228,23 @@ public class Main {
 		return new ModelAndView("president_index");
 	}
 	
+	@RequestMapping(value = "/president_checkvoter", method = RequestMethod.POST)
+	public ModelAndView presidentCheckVoter(
+				@RequestParam(value = "idVotante", required = true) Long idVotante,
+				@RequestParam(value = "idEleccion", required = true) Long idEleccion,
+				Model model) {
+	
+		boolean resultado = new CheckV(cvRep).checkV(idVotante, idEleccion);
+		if (resultado) {
+			model.addAttribute("mensaje", "El votante a votado");
+		}
+		else {
+			model.addAttribute("mensaje", "El votante no ha votado");
+		}
+		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+
+		return new ModelAndView("president_index");
+	}
+
 	//Parte de voto remoto
 }
