@@ -230,24 +230,24 @@ public class Main {
 		return new ModelAndView("president_index");
 	}
 	
-	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
-	public ModelAndView presidentCheckVoter(
-				@RequestParam(value = "eRep", required = true) EleccionRepository eRep) {
-	
-		Iterable<Eleccion> resultado = new GetAV(eRep).getAV(eRep);
-		//Duda
-
-		return new ModelAndView("president_index");
-	}
-	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
-	public ModelAndView presidentCheckVoter(
-				@RequestParam(value = "vtRep", required = true) VoterRepository vtRep) {
-	
-		Iterable<Voter> resultado = new GetV(vtRep).getV(vtRep);
-		//Duda
-
-		return new ModelAndView("president_index");
-	}
+//	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
+//	public ModelAndView presidentCheckVoter(
+//				@RequestParam(value = "eRep", required = true) EleccionRepository eRep) {
+//	
+//		Iterable<Eleccion> resultado = new GetAV(eRep).getAV(eRep);
+//		//Duda
+//
+//		return new ModelAndView("president_index");
+//	}
+//	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
+//	public ModelAndView presidentCheckVoter(
+//				@RequestParam(value = "vtRep", required = true) VoterRepository vtRep) {
+//	
+//		Iterable<Voter> resultado = new GetV(vtRep).getV(vtRep);
+//		//Duda
+//
+//		return new ModelAndView("president_index");
+//	}
 
 	//Parte de voto remoto
 }
