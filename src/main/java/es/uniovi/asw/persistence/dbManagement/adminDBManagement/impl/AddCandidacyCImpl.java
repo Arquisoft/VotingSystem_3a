@@ -14,7 +14,7 @@ class AddCandidacyCImpl implements AddCandidacyC{
 	public void saveCandidacys(VotingRepository vRep,CandidacyRepository cRep, List<Candidatura> candidaturas, Long id) {
 		GetCandidacyS gc = new GetCandidacySImpl();
 		List<Candidatura> cand = gc.getCandidacys(vRep, cRep, id);
-		for(int i=0; i<cand.size(); i++){
+		for(int i=0; i<cand.size()-1; i++){
 			if(cand.get(i).getNombre().contains("Voto en blanco")){
 				cand.get(i).setDescripcion("Sin descripción");
 				cand.get(i).setProgramaElectoral("No existe programa electoral disponible");
