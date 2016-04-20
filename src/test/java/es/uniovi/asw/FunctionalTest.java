@@ -28,7 +28,10 @@ import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
+import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
@@ -51,6 +54,10 @@ public class FunctionalTest {
   private CandidacyRepository cRep;
   @Autowired
   private ConfirmedVoteRepository cvRep;
+  @Autowired
+  private EleccionRepository eRep;
+  @Autowired
+  private VoterRepository voRep;
 
   private MockMvc mvc;
 
@@ -101,6 +108,8 @@ public class FunctionalTest {
 	  cc.saveCandidaturas();
   }
   
+  //Test voto electronico
+  
   @Test
   public void testAlreadyV() throws Exception {
 	  Voter v = new Voter("Prueba", "a@b.c", "abc", "0000000002");
@@ -119,6 +128,14 @@ public class FunctionalTest {
   public void testGetVo() throws Exception {
 	  GetVO vo = new GetVO(cRep);
 	  vo.obtenerOpciones(1L);
+  }
+  
+  //Test voto en físico
+  
+  @Test
+  public void testAddPV() throws Exception {
+	  AddPV a = new AddPV(cvRep, voRep, eRep);
+	  a.addPV("9449709K", 1);
   }
   
 }
