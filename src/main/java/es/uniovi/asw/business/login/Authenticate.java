@@ -13,7 +13,6 @@ public class Authenticate {
 				voter = votante;
 				Object[] objetos = {"voter", voter};
 				return objetos;
-
 			}
 		} else if (user.equals("admin") && password.equals("admin")) {
 			Object[] objetos = {"admin", null};
@@ -22,7 +21,7 @@ public class Authenticate {
 			Object[] objetos = {"president", null};
 			return objetos;
 		}
-		Object[] objetos = {"incorrecto", null};
+		Object[] objetos = {"incorrecto", null}; 
 		return objetos;
 	}
 
