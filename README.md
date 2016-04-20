@@ -10,6 +10,15 @@ Voting System
 
 Voting System es un sistema de gestión de votaciones de manera on-line. Permitirá tanto la configuración de los parámetros de gestión de las votaciones como también la funcionalidad de permitir a los votantes emitir su voto de manera electrónica durante el periodo que se estime oportuno.
 
+## Lanzamiento de la aplicación
+La aplicación puede ser lanzada ejecutando mediante línea de comandos la instrucción ```spring-boot:run``` y se accede mediante el navegador en la URI ```http://localhost:8281```
+
+## Bases de datos de la aplicación
+Para el tratamiento de los datos se han empleado tres bases de datos diferentes:
+* ```HSQLDB``` Para los datos en producción (en local). Se encuentra disponible en el siguiente [enlace](https://www.dropbox.com/sh/g3y9b00ascxo7js/AACNzXSTuYbxXI3vyRGSJFE5a?dl=0)
+* ```HSQLDB``` Para pruebas en local. Se encuentra disponible en el siguiente [enlace](https://www.dropbox.com/sh/tyk6nnxkzb1kamd/AACQoa-V5mFDNLrnGiaa8MVva?dl=0)
+* ```MySQL``` Para pruebas en remoto.
+
 # Authors
 
 * Darío Rodríguez García
