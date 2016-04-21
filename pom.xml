@@ -109,6 +109,11 @@
 			<version>1.7.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+  			<groupId>org.postgresql</groupId>
+  			<artifactId>postgresql</artifactId>
+  			<version>9.4.1208</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
