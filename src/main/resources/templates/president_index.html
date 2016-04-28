@@ -13,33 +13,41 @@
    <form th:action="@{/president_checkvoter}" method="post">
    	<div class="form-group">
     	<label for="idVotante">Id votante:</label>
-    	<input type="text" class="form-control" id="idVotante" placeholder="Id votante" name="idVotante"/>
+   		<select id="idVotante" name="idVotante" class="form-control">
+        	<option value="-1">Selecciona una eleccion</option>
+			<option th:each="votante : ${votantes}" 
+	                th:value="${votante.id}" th:text="${votante.nif}"></option>
+        </select>   	
   	</div>
    	<div>
-   		<label for="eleccion">Eleccion:</label>
-   		<select id="Select" class="form-control">
+   		<label for="eleccionId">Eleccion:</label>
+   		<select id="eleccionId" name="eleccionId" class="form-control">
         <option value="-1">Selecciona una eleccion</option>
 			<option th:each="eleccion : ${elecciones}" 
 	                th:value="${eleccion.id}" th:text="${eleccion.nombre}"></option>
         </select>   	
    	</div>
-   	<button type="button" class="btn btn-primary">Comprobar votante</button>
+   	<button type="submit" class="btn btn-primary">Comprobar votante</button>
    </form>
    <p/>
    <form th:action="@{/president_addpv}" method="post">
    	<div class="form-group">
     	<label for="dni">DNI:</label>
-    	<input type="text" class="form-control" id="DNI" placeholder="DNI" name="DNI"/>
+   		<select id="DNI" name="DNI" class="form-control">
+        	<option value="-1">Selecciona una eleccion</option>
+			<option th:each="votante : ${votantes}" 
+	                th:value="${votante.nif}" th:text="${votante.nif}"></option>
+        </select>   	
   	</div>
    	<div>
-   		<label for="eleccion">Eleccion:</label>
-   		<select id="Select" class="form-control">
+   		<label for="eleccionId">Eleccion:</label>
+   		<select id="eleccionId" class="form-control" name="eleccionId">
         <option value="-1">Selecciona una eleccion</option>
 			<option th:each="eleccion : ${elecciones}" 
 	                th:value="${eleccion.id}" th:text="${eleccion.nombre}"></option>
         </select>   	
    	</div>
-   	<button type="button" class="btn btn-success">Registrar votante</button>
+   	<button type="submit" class="btn btn-success">Registrar votante</button>
    </form>
    
 </div>

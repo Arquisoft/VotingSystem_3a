@@ -10,7 +10,7 @@ class HasVotedImpl implements HasVoted {
 
 	@Override
 	public boolean alreadyVoted(ConfirmedVoteRepository cvRep, Long idVotante, Long idEleccion) {
-		List<VotoConfirmado> confirmados = cvRep.findAll();
+		Iterable<VotoConfirmado> confirmados = cvRep.findAll();
 		for(VotoConfirmado vc : confirmados){
 			if(vc.getEleccion().getId().equals(idEleccion) && vc.getVotante().getId().equals(idVotante)){
 				return vc.isHaVotado();

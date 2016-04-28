@@ -2,8 +2,10 @@ package es.uniovi.asw.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import es.uniovi.asw.model.types.VotoConfirmadoKey;
@@ -15,8 +17,13 @@ public class VotoConfirmado {
 	@Id @GeneratedValue
 	private Long id;
 	
-	@Id @ManyToOne private Voter votante;
-	@Id @ManyToOne private Eleccion eleccion;
+	@Id@ManyToOne
+	@JoinColumn(name = "votante")
+	private Voter votante;
+	@Id@ManyToOne
+	@JoinColumn(name = "eleccion")
+	private Eleccion eleccion;
+
 	private boolean haVotado;
 	
 	VotoConfirmado() {}

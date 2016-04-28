@@ -78,7 +78,8 @@ public class Main {
 			model.addAttribute("voter");
 			return new ModelAndView("voter_index");
 		} else if (resultado.equals("president")) {
-			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+			model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+			model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 			return new ModelAndView("president_index");
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
@@ -107,7 +108,8 @@ public class Main {
 	public ModelAndView adminIndexActivate(@RequestParam(value = "action", required = true) String id, Model model) {
 		new ConfVT(vRep, Long.parseLong(id)).updateEleccion();
 		model.addAttribute("eleccion", new Eleccion());
-		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 		return new ModelAndView("admin_index");
 	}
 
@@ -196,7 +198,7 @@ public class Main {
 	
 	@RequestMapping(value = "/president_addpv", method = RequestMethod.POST)
 	public ModelAndView presidentIndexCheckVoter(
-				@RequestParam(value = "voterDNI", required = true) String voterDNI,
+				@RequestParam(value = "DNI", required = true) String voterDNI,
 				@RequestParam(value = "eleccionId", required = true) Long eleccionId,
 				Model model) {
 	
@@ -207,7 +209,8 @@ public class Main {
 		else {
 			model.addAttribute("mensaje", "El votante no se registro (dni o elección no válidas)");
 		}
-		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 
 		return new ModelAndView("president_index");
 	}
@@ -215,7 +218,7 @@ public class Main {
 	@RequestMapping(value = "/president_checkvoter", method = RequestMethod.POST)
 	public ModelAndView presidentCheckVoter(
 				@RequestParam(value = "idVotante", required = true) Long idVotante,
-				@RequestParam(value = "idEleccion", required = true) Long idEleccion,
+				@RequestParam(value = "eleccionId", required = true) Long idEleccion,
 				Model model) {
 	
 		boolean resultado = new CheckV(cvRep).checkV(idVotante, idEleccion);
@@ -225,29 +228,11 @@ public class Main {
 		else {
 			model.addAttribute("mensaje", "El votante no ha votado");
 		}
-		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 
 		return new ModelAndView("president_index");
 	}
-	
-//	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
-//	public ModelAndView presidentCheckVoter(
-//				@RequestParam(value = "eRep", required = true) EleccionRepository eRep) {
-//	
-//		Iterable<Eleccion> resultado = new GetAV(eRep).getAV(eRep);
-//		//Duda
-//
-//		return new ModelAndView("president_index");
-//	}
-//	@RequestMapping(value = "/president_index", method = RequestMethod.POST)
-//	public ModelAndView presidentCheckVoter(
-//				@RequestParam(value = "vtRep", required = true) VoterRepository vtRep) {
-//	
-//		Iterable<Voter> resultado = new GetV(vtRep).getV(vtRep);
-//		//Duda
-//
-//		return new ModelAndView("president_index");
-//	}
 
 	//Parte de voto remoto
 }
