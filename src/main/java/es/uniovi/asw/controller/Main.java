@@ -22,7 +22,6 @@ import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
-import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
@@ -52,8 +51,6 @@ public class Main {
 	@Autowired
 	private VoterRepository vtRep;
 	@Autowired
-	private EleccionRepository eRep;
-	@Autowired
 	private ConfirmedVoteRepository cvRep;
 
     @RequestMapping(value="/",method=RequestMethod.GET)
@@ -78,7 +75,7 @@ public class Main {
 			model.addAttribute("voter");
 			return new ModelAndView("voter_index");
 		} else if (resultado.equals("president")) {
-			model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+			model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
 			model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 			return new ModelAndView("president_index");
 		} else {
@@ -108,7 +105,7 @@ public class Main {
 	public ModelAndView adminIndexActivate(@RequestParam(value = "action", required = true) String id, Model model) {
 		new ConfVT(vRep, Long.parseLong(id)).updateEleccion();
 		model.addAttribute("eleccion", new Eleccion());
-		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
 		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 		return new ModelAndView("admin_index");
 	}
@@ -202,14 +199,14 @@ public class Main {
 				@RequestParam(value = "eleccionId", required = true) Long eleccionId,
 				Model model) {
 	
-		boolean resultado = new AddPV(cvRep, vtRep, eRep).addPV(voterDNI, eleccionId);
+		boolean resultado = new AddPV(cvRep, vtRep, vRep).addPV(voterDNI, eleccionId);
 		if (resultado) {
 			model.addAttribute("mensaje", "Votante registrado");
 		}
 		else {
 			model.addAttribute("mensaje", "El votante no se registro (dni o elección no válidas)");
 		}
-		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
 		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 
 		return new ModelAndView("president_index");
@@ -228,7 +225,7 @@ public class Main {
 		else {
 			model.addAttribute("mensaje", "El votante no ha votado");
 		}
-		model.addAttribute("elecciones", new GetAV(eRep).getAV(eRep));
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
 		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 
 		return new ModelAndView("president_index");

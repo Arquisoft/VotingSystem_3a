@@ -6,8 +6,8 @@ import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
-import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.AddVote;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
 
@@ -17,12 +17,12 @@ public class AddPhysicalVoteImpl implements AddPhisicalVote {
 	public boolean add(String dniVoter, long idElection,
 			ConfirmedVoteRepository cvRep,
 			VoterRepository voterRep,
-			EleccionRepository eRep) {
+			VotingRepository vRep) {
 		
 		AddVote addVote = PersistenceFactory.newAddVote();
 		
 		Voter voter = voterRep.findOneByNif(dniVoter);
-		Eleccion eleccion = eRep.findOne(idElection);
+		Eleccion eleccion = vRep.findOne(idElection);
 		
 		if (voter == null || eleccion == null) {
 			return false;
@@ -30,6 +30,7 @@ public class AddPhysicalVoteImpl implements AddPhisicalVote {
 		
 		VotoConfirmado voto = new VotoConfirmado(voter, eleccion);
 		
+		voto.setHaVotado(true);
 		addVote.storeVote(cvRep, voto);
 		
 		return true;

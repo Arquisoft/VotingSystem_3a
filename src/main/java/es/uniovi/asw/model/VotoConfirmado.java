@@ -15,7 +15,7 @@ import es.uniovi.asw.model.types.VotoConfirmadoKey;
 public class VotoConfirmado {
 	
 	@Id @GeneratedValue
-	private Long id;
+	private Long identityId;
 	
 	@Id@ManyToOne
 	@JoinColumn(name = "votante")

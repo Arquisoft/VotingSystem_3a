@@ -1,18 +1,13 @@
 package es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl;
 
+import java.util.List;
+
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.PhysicalVoteService;
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.AddPhysicalVoteImpl;
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.CheckVoteImpl;
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.GetActiveVotingsImpl;
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.GetVotersImpl;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
-import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
-import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
-
-import java.util.List;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 
 public class PhysicalVoteServiceImpl implements PhysicalVoteService{
@@ -29,8 +24,8 @@ public class PhysicalVoteServiceImpl implements PhysicalVoteService{
     public boolean add(String dniVoter, long idElection,
                                   ConfirmedVoteRepository cvRep,
                                   VoterRepository voterRep,
-                                  EleccionRepository eRep) {
-        return new AddPhysicalVoteImpl().add(dniVoter, idElection, cvRep, voterRep, eRep);
+                                  VotingRepository vRep) {
+        return new AddPhysicalVoteImpl().add(dniVoter, idElection, cvRep, voterRep, vRep);
     }
 
     @Override
@@ -44,7 +39,7 @@ public class PhysicalVoteServiceImpl implements PhysicalVoteService{
     }
 
     @Override
-    public Iterable<Eleccion> getActiveVoter(EleccionRepository eRep) {
-        return new GetActiveVotingsImpl().getActiveVoter(eRep);
+    public Iterable<Eleccion> getActiveVoter(VotingRepository vRep) {
+        return new GetActiveVotingsImpl().getActiveVoter(vRep);
     }
 }

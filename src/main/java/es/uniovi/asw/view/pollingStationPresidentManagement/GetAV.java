@@ -3,19 +3,19 @@ package es.uniovi.asw.view.pollingStationPresidentManagement;
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.PhysicalVoteService;
 import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl.PhysicalVoteServiceImpl;
 import es.uniovi.asw.model.Eleccion;
-import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 
 public class GetAV {
 
-	private EleccionRepository eRep;
+	private VotingRepository vRep;
 
-	public GetAV(EleccionRepository eRep) {
+	public GetAV(VotingRepository vRep) {
 		super();
-		this.eRep = eRep;
+		this.vRep = vRep;
 	}
-	public Iterable<Eleccion> getAV(EleccionRepository eRep) {
+	public Iterable<Eleccion> getAV(VotingRepository vRep) {
 
 		PhysicalVoteService physicalVoteService = PhysicalVoteServiceImpl.getInstance();
-		return physicalVoteService.getActiveVoter(eRep);
+		return physicalVoteService.getActiveVoter(vRep);
 	}
 }

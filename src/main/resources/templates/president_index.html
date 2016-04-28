@@ -5,7 +5,7 @@
 
 </head>
 <body>
-<div class="page-header">
+<div class="page-header jumbotron col-lg-10 col-lg-offset-1 text-center">
    <h1>Página de presidente de mesa<small> Sistema de votación</small></h1>
    
    <div th:if="${mensaje != null}" th:text="${mensaje}"></div>
@@ -14,7 +14,7 @@
    	<div class="form-group">
     	<label for="idVotante">Id votante:</label>
    		<select id="idVotante" name="idVotante" class="form-control">
-        	<option value="-1">Selecciona una eleccion</option>
+        	<option value="-1">Selecciona un votante</option>
 			<option th:each="votante : ${votantes}" 
 	                th:value="${votante.id}" th:text="${votante.nif}"></option>
         </select>   	
@@ -27,6 +27,7 @@
 	                th:value="${eleccion.id}" th:text="${eleccion.nombre}"></option>
         </select>   	
    	</div>
+   	<br></br>
    	<button type="submit" class="btn btn-primary">Comprobar votante</button>
    </form>
    <p/>
@@ -34,7 +35,7 @@
    	<div class="form-group">
     	<label for="dni">DNI:</label>
    		<select id="DNI" name="DNI" class="form-control">
-        	<option value="-1">Selecciona una eleccion</option>
+        	<option value="-1">Selecciona una DNI</option>
 			<option th:each="votante : ${votantes}" 
 	                th:value="${votante.nif}" th:text="${votante.nif}"></option>
         </select>   	
@@ -47,6 +48,7 @@
 	                th:value="${eleccion.id}" th:text="${eleccion.nombre}"></option>
         </select>   	
    	</div>
+   	<br></br>
    	<button type="submit" class="btn btn-success">Registrar votante</button>
    </form>
    

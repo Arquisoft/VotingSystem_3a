@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,9 @@ import org.springframework.web.context.WebApplicationContext;
 import es.uniovi.asw.model.Candidatura;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
+import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
+import es.uniovi.asw.view.pollingStationPresidentManagement.CheckV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
@@ -43,6 +46,8 @@ public class FunctionalTest {
   private VotingRepository vRep;
   @Autowired
   private CandidacyRepository cRep;
+  @Autowired
+  private ConfirmedVoteRepository cvRep;
 
   private MockMvc mvc;
 
@@ -92,4 +97,14 @@ public class FunctionalTest {
 	  ConfCand cc = new ConfCand(vRep, cRep, cands, new Long(1));
 	  cc.saveCandidaturas();
   }
+  
+//  @Test
+//  public void testCheckVoter() throws Exception {
+//	  
+//	  CheckV checkV = new CheckV(cvRep);
+//	  boolean r = checkV.CheckV(1L, 1L);
+//	  
+//	  Assert.assertTrue(r);
+//  }
+  
 }
