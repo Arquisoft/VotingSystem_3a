@@ -7,16 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import es.uniovi.asw.model.VotoConfirmado;
 import es.uniovi.asw.model.types.VotoConfirmadoKey;
 
-public interface ConfirmedVoteRepository extends CrudRepository<VotoConfirmado, VotoConfirmadoKey>{
+public interface ConfirmedVoteRepository extends CrudRepository<VotoConfirmado, VotoConfirmadoKey> {
 
-
-	
 	List<VotoConfirmado> findByHaVotadoTrue();
-	VotoConfirmado findOne(Long id);
-	
+
 	@SuppressWarnings("unchecked")
 	VotoConfirmado save(VotoConfirmado vc);
-	
-	
-	
+
 }

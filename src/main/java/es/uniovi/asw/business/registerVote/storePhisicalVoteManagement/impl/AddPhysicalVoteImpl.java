@@ -1,7 +1,7 @@
 package es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.impl;
 
 
-import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.AddPhisicalVote;
+import es.uniovi.asw.business.registerVote.storePhisicalVoteManagement.AddPhysicalVote;
 import es.uniovi.asw.model.Eleccion;
 import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.model.VotoConfirmado;
@@ -11,7 +11,7 @@ import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.AddVote;
 import es.uniovi.asw.persistence.dbManagement.votingDBManagement.impl.PersistenceFactory;
 
-public class AddPhysicalVoteImpl implements AddPhisicalVote {
+public class AddPhysicalVoteImpl implements AddPhysicalVote {
 
 	@Override
 	public boolean add(String dniVoter, long idElection,
@@ -31,7 +31,7 @@ public class AddPhysicalVoteImpl implements AddPhisicalVote {
 		VotoConfirmado voto = new VotoConfirmado(voter, eleccion);
 		
 		voto.setHaVotado(true);
-		addVote.storeVote(cvRep, voto);
+		addVote.añadirVotoConfirmado(cvRep, voto);
 		
 		return true;
 	}

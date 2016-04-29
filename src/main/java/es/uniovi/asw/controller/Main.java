@@ -87,16 +87,14 @@ public class Main {
 			sesion.setAttribute("eleccionesHaVotado", lista);
 			return new ModelAndView("voter_index");
 		} else if (resultado[0].equals("president")) {
-			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
-		} else if (resultado.equals("president")) {
 			model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
 			model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
+			LOG.info("Página de Presidente");
 			return new ModelAndView("president_index");
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
 			return new ModelAndView("index");
 		}
-		return null;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, params = "get_cand")
@@ -243,6 +241,7 @@ public class Main {
 				Model model) {
 			if (!new AlreadyV(cvRep).yaHaVotado(Long.parseLong(e), (Voter) sesion.getAttribute("voter"))) {
 				sesion.setAttribute("opciones", new GetVO(cRep).obtenerOpciones(Long.parseLong(e)));
+				model.addAttribute("error", "Error, ya ha votado en esta elección");
 				return new ModelAndView("show_options");
 			} else {
 				model.addAttribute("error", "Error, ya ha votado en esta elección");
@@ -256,6 +255,7 @@ public class Main {
 			if(c.getId().equals(Long.parseLong(id)))
 				new VoteV(vRep,vtRep, voRep, cvRep).meterVoto(c, (Voter) sesion.getAttribute("voter"));
 		}
+		model.addAttribute("votado", "Su voto se ha realizado con éxito");
 		return new ModelAndView("voter_index");
 		
 	}
@@ -269,7 +269,7 @@ public class Main {
 	
 		boolean resultado = new CheckV(cvRep).checkV(idVotante, idEleccion);
 		if (resultado) {
-			model.addAttribute("mensaje", "El votante a votado");
+			model.addAttribute("mensaje", "El votante ha votado");
 		}
 		else {
 			model.addAttribute("mensaje", "El votante no ha votado");

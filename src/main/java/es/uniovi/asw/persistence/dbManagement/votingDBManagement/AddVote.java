@@ -15,7 +15,5 @@ public interface AddVote {
 	public void añadirVoto(VoteRepository voRep, Voto voto);
 	
 	public void añadirVotoConfirmado(ConfirmedVoteRepository cvRep, VotoConfirmado vc);
-
-	public void storeVote(ConfirmedVoteRepository cvRep, VotoConfirmado voto);
 	
 }
