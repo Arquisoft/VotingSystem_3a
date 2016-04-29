@@ -25,22 +25,23 @@ import es.uniovi.asw.model.Voter;
 import es.uniovi.asw.persistence.dbManagement.repository.CandidacyRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.CircunscripcionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.ConfirmedVoteRepository;
-import es.uniovi.asw.persistence.dbManagement.repository.EleccionRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.PollingStationRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoteRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VoterRepository;
 import es.uniovi.asw.persistence.dbManagement.repository.VotingRepository;
 import es.uniovi.asw.view.pollingStationPresidentManagement.AddPV;
-import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
-import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
-import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
-import es.uniovi.asw.view.votingSystem.voterManagement.VoteV;
+import es.uniovi.asw.view.pollingStationPresidentManagement.CheckV;
+import es.uniovi.asw.view.pollingStationPresidentManagement.GetV;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.ConfVT;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetCand;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetPS;
 import es.uniovi.asw.view.systemConfiguration.administratorManagement.GetVT;
+import es.uniovi.asw.view.votingSystem.voterManagement.AlreadyV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetAV;
+import es.uniovi.asw.view.votingSystem.voterManagement.GetVO;
+import es.uniovi.asw.view.votingSystem.voterManagement.VoteV;
 
 @RestController
 public class Main {
@@ -57,8 +58,6 @@ public class Main {
 	private CircunscripcionRepository ciRep;
 	@Autowired
 	private VoterRepository vtRep;
-	@Autowired
-	private EleccionRepository eRep;
 	@Autowired
 	private ConfirmedVoteRepository cvRep;
 	@Autowired
@@ -89,11 +88,15 @@ public class Main {
 			return new ModelAndView("voter_index");
 		} else if (resultado[0].equals("president")) {
 			model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		} else if (resultado.equals("president")) {
+			model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
+			model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 			return new ModelAndView("president_index");
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
 			return new ModelAndView("index");
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST, params = "get_cand")
@@ -118,6 +121,8 @@ public class Main {
 		model.addAttribute("eleccion", new Eleccion());
 		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
 		new ConfVT(vRep, Long.parseLong(id)).updateEleccion();
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 		return new ModelAndView("admin_index");
 	}
 
@@ -214,18 +219,19 @@ public class Main {
 	
 	@RequestMapping(value = "/president_addpv", method = RequestMethod.POST)
 	public ModelAndView presidentIndexCheckVoter(
-				@RequestParam(value = "voterDNI", required = true) String voterDNI,
+				@RequestParam(value = "DNI", required = true) String voterDNI,
 				@RequestParam(value = "eleccionId", required = true) Long eleccionId,
 				Model model) {
 	
-		boolean resultado = new AddPV(cvRep, vtRep, eRep).addPV(voterDNI, eleccionId);
+		boolean resultado = new AddPV(cvRep, vtRep, vRep).addPV(voterDNI, eleccionId);
 		if (resultado) {
 			model.addAttribute("mensaje", "Votante registrado");
 		}
 		else {
 			model.addAttribute("mensaje", "El votante no se registro (dni o elección no válidas)");
 		}
-		model.addAttribute("elecciones", new GetVT(vRep).getActiveVotings());
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
 
 		return new ModelAndView("president_index");
 	}
@@ -255,4 +261,22 @@ public class Main {
 	}
 	
 
+	@RequestMapping(value = "/president_checkvoter", method = RequestMethod.POST)
+	public ModelAndView presidentCheckVoter(
+				@RequestParam(value = "idVotante", required = true) Long idVotante,
+				@RequestParam(value = "eleccionId", required = true) Long idEleccion,
+				Model model) {
+	
+		boolean resultado = new CheckV(cvRep).checkV(idVotante, idEleccion);
+		if (resultado) {
+			model.addAttribute("mensaje", "El votante a votado");
+		}
+		else {
+			model.addAttribute("mensaje", "El votante no ha votado");
+		}
+		model.addAttribute("elecciones", new GetAV(vRep).getAV(vRep));
+		model.addAttribute("votantes", new GetV(vtRep).getV(vtRep));
+
+		return new ModelAndView("president_index");
+	}
 }

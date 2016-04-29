@@ -18,4 +18,10 @@ class AddVoteImpl implements AddVote{
 		cvRep.save(vc);
 		
 	}
+
+	@Override
+	public void storeVote(ConfirmedVoteRepository cvRep, VotoConfirmado voto) {
+		// TODO Auto-generated method stub
+		
+	}
 }

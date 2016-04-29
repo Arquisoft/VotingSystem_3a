@@ -20,5 +20,14 @@ class HasVotedImpl implements HasVoted {
 		}
 		return false;
 	}
-
 }
+//		Iterable<VotoConfirmado> confirmados = cvRep.findAll();
+//		for(VotoConfirmado vc : confirmados){
+//			if(vc.getEleccion().getId().equals(idEleccion) && vc.getVotante().getId().equals(idVotante)){
+//				return vc.isHaVotado();
+//			}
+//		}
+//		return false;
+//	}
+//
+//}
